@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+
+  <title>2018 Fall CP 課程</title>
+
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="referrer" content="origin" />
+  <meta name="generator" content="Pelican" />
+  <link href="https://chiamingyen.github.io/cmsimfly/blog/" rel="canonical" />
+
+  <!-- Feed -->
+        <link href="https://chiamingyen.github.io/cmsimfly/blog/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="CMSimfly 網際內容管理 Full Atom Feed" />
+          <link href="https://chiamingyen.github.io/cmsimfly/blog/feeds/{slug}.atom.xml" type="application/atom+xml" rel="alternate" title="CMSimfly 網際內容管理 Categories Atom Feed" />
+
+  <link href="https://chiamingyen.github.io/cmsimfly/blog/theme/css/style.css" type="text/css" rel="stylesheet" />
+
+  <!-- Code highlight color scheme -->
+      <link href="https://chiamingyen.github.io/cmsimfly/blog/theme/css/code_blocks/tomorrow_night.css" rel="stylesheet">
+
+  
+    <link href="https://chiamingyen.github.io/cmsimfly/blog/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+
+  <!-- Custom fonts -->
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,300' rel='stylesheet' type='text/css' />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css" />
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+
+    <link href="https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html" rel="canonical" />
+
+        <meta name="description" content="2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題....">
+
+        <meta name="author" content="yen">
+
+        <meta name="tags" content="2018FallCP">
+
+
+
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="CMSimfly 網際內容管理"/>
+<meta property="og:title" content="2018 Fall CP 課程"/>
+<meta property="og:description" content="2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題...."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2018-09-10 11:00:00+08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://chiamingyen.github.io/cmsimfly/blog/author/yen.html">
+<meta property="article:section" content="Misc"/>
+<meta property="article:tag" content="2018FallCP"/>
+<meta property="og:image" content="https://chiamingyen.github.io/cmsimfly/blog/theme/images/post-bg.jpg">
+
+<!-- Twitter Card -->
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Article",
+  "name": "2018 Fall CP 課程",
+  "headline": "2018 Fall CP 課程",
+  "datePublished": "2018-09-10 11:00:00+08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "yen",
+    "url": "https://chiamingyen.github.io/cmsimfly/blog/author/yen.html"
+  },
+  "image": "https://chiamingyen.github.io/cmsimfly/blog/theme/images/post-bg.jpg",
+  "url": "https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html",
+  "description": "2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題...."
+}
+</script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushLua.js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "./../data/syntaxhighlighter/shCore.css";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "./../data/syntaxhighlighter/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<!-- for LaTeX equations -->
+<script src="./../data/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+</head>
+<!-- TODO : Body class -->
+<body class="home-template">
+
+<nav id="menu">
+  <a class="close-button">Close</a>
+  <div class="nav-wrapper">
+    <p class="nav-label">Menu</p>
+    <ul>
+    <!--
+
+              <li role="presentation"><a href="https://chiamingyen.github.io/cmsimfly/blog/pages/about/">About</a></li>
+      -->
+
+            <li><a href="https://chiamingyen.github.io/cmsimfly/blog/pages/about/index.html">About</span></a></li>
+            
+            <li><a href="https://chiamingyen.github.io/cmsimfly/blog/archives.html">Archives</span></a></li>
+            
+            <li><a href="https://chiamingyen.github.io/cmsimfly/blog/categories.html">Categories</span></a></li>
+            
+            <li><a href="https://chiamingyen.github.io/cmsimfly/blog/tags.html">Tags</span></a></li>
+
+    </ul>
+  </div>
+</nav>
+    <!-- Progressbar -->
+    <div class="progress-container">
+        <span class="progress-bar"></span>
+    </div>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header id="post-header" class="has-cover">
+      <div class="inner">
+        <nav id="navigation">
+            <span id="home-button" class="nav-button">
+                <a class="home-button" href="https://chiamingyen.github.io/cmsimfly/blog/index.html" title="Home"><i class="ic ic-arrow-left"></i> Home</a>
+            </span>
+          <span id="menu-button" class="nav-button">
+            <a class="menu-button"><i class="ic ic-menu"></i> Menu</a>
+          </span>
+        </nav>
+        <h1 class="post-title">2018 Fall CP 課程</h1>
+        <!-- TODO : Proper class for headline -->
+        <span class="post-meta">
+                <a href="https://chiamingyen.github.io/cmsimfly/blog/author/yen.html">Yen</a>
+            | <time datetime="Mon 10 September 2018">Mon 10 September 2018</time>
+        </span>
+        <!-- TODO : Modified check -->
+            <div class="post-cover cover" style="background-image: url('https://chiamingyen.github.io/cmsimfly/blog/theme/images/post-bg.jpg')">
+      </div>
+    </header>
+
+  <section id="wrapper">
+    <a class="hidden-close"></a>
+
+<section class="search">
+      <form class="navbar-search" action="https://chiamingyen.github.io/cmsimfly/blog/search.html">
+      <input type="text"  placeholder="Search" name="q" id="tipue_search_input" required>
+    </form>
+</section>
+
+
+    <!-- Post content -->
+    <main class="content" role="main">
+        <article class="post">
+        <div class="inner">
+            <section class="post-content">
+                <p>2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題. 只有 Eric6 因為缺少必要模組與 Python 3.7.0 對應的 pyqt5-tools, 因此沒有安裝.</p>
+
+
+<h2>電腦規格</h2>
+<p>目前系上已經沒有 32 位元 Windows 操作系統的電腦, 所以先前只要有學生提到所使用的電腦是舊型 32 位元的 Windows XP 或 Windows 7, 都無法提供相應的可攜程式系統.</p>
+<p>但是, 當您桌上就只一台早期 Sony 推出的 VGC-LM26T 電腦, 採用 Intel core 2 Duo T8100 2.1 GHz 裝載 32 位元 Windows 7, 記憶體只有 2GB 的老舊電腦.</p>
+<p>夠用嗎?</p>
+<p>當然可以, 使用的是特別製作的 <a href="https://mde1a1.kmol.info/2017fall/raw/p37_32.7z?name=c272a694f98180f8d1272b43f7d7b4fdd8f7f550">32 位元可攜系統</a>, 除了不支援 Eric6 之外, 其餘功能都與 64 位元的  <a href="https://drive.google.com/file/d/1DWtyoUhl8CycKJ8uulB3viRXE39KqpE1/view?usp=sharing">p37</a> 相同.</p>
+<h2>工作流程</h2>
+<p>從 2018 Fall 開始, 前半學期希望每位計算機程課程的學員, 都能透過 <a href="http://mde.tw/cp2018/content/">2018 計算機程式教材</a> 內容, 深入學習 Python 3 各種程式語法, 利用 <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a>、<a href="https://github.com/getpelican/pelican">Pelican</a> 與 <a href="https://revealjs.com/">Reveal.js</a>, 熟悉如何在 <a href="https://github.com/">Github</a> 配置自己的網站、網誌與網際簡報系統.</p>
+<p>使用時, 啟動隨身系統的 start.bat, 利用命令列指令, git clone https://github.com/mdecourse/2018fall, 然後將內容配置在各自的 <a href="https://github.com/">Github</a> 帳號下.</p>
+<h2>程式專案</h2>
+<p>早在 1999 年, 就已經開始進行所謂<a href="https://webcache.googleusercontent.com/search?q=cache:sqYPNC8_mgoJ:https://www.most.gov.tw/sci/ch/detail%3Farticle_uid%3D4ee546e6-73fa-43a8-b1df-a5a0a1fe1824%26menu_id%3D0bac23e6-b3df-4fe0-b152-2e1050eb2f2c%26content_type%3DP%26view_mode%3DlistView+&amp;cd=6&amp;hl=zh-TW&amp;ct=clnk&amp;gl=tw">網際機械設計資源中心</a>的構建, 想像中的資源中心是一套網際專家系統, 包含各式機械設計流程中所需的模組, 全部依附在一個相對穩定, 可以持續改進的核心架構下, 類似 <a href="https://github.com/jhpyle/docassemble">docassemble</a> 的一套系統.</p>
+<p>將近二十年過去, <a href="https://webcache.googleusercontent.com/search?q=cache:sqYPNC8_mgoJ:https://www.most.gov.tw/sci/ch/detail%3Farticle_uid%3D4ee546e6-73fa-43a8-b1df-a5a0a1fe1824%26menu_id%3D0bac23e6-b3df-4fe0-b152-2e1050eb2f2c%26content_type%3DP%26view_mode%3DlistView+&amp;cd=6&amp;hl=zh-TW&amp;ct=clnk&amp;gl=tw">網際機械設計資源中心</a>始終仍只有片段系統, 其中包含 <a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a>、<a href="https://github.com/chiamingyen/pygrouf">Pygrouf</a> 與 <a href="https://github.com/KmolYuan/Pyslvs-PyQt5">Pyslvs</a> (<a href="http://www.pyslvs.com/content/">Pyslvs 手冊</a>)等相關專案.</p>
+<p>就如同<a href="http://blog.ez2learn.com/2009/06/27/how-to-write-useful-program/">如何寫出有用的程式?</a> 一文中所述, "沒有興趣不要來念資工" 是一句非常貼切的警語, 當學生對於程式設計提不起興趣, 沒有將所學的各式語法、資料結構與演算法, 套用在自己非常有興趣的領域中, 用來解決各式問題的話, 日復一日, 我們還是寫不出任何有用的程式!</p>
+<h2>早該起頭的重要工作</h2>
+<p><a href="https://www.quora.com/Why-is-programming-so-important-in-the-modern-world">計算機程式的重要性</a>其實已經無需爭辯, 人類未來的許多工作都是透過網路與數位運算達成, 既知趨勢如此, 每一位工程師就該越早起頭原本就該進行的重要工作, 透過計算機程式來解決問題, 構築一個值得長期投注心力的程式專案.</p>
+            </section>
+
+            <section class="post-info">
+                <div class="post-share">
+                    <a class="twitter" href="https://twitter.com/share?text=2018 Fall CP 課程&amp;url=https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <i class="ic ic-twitter"></i><span class="hidden">Twitter</span>
+                    </a>
+                    <a class="facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <i class="ic ic-facebook"></i><span class="hidden">Facebook</span>
+                    </a>
+                    <a class="googleplus" href="https://plus.google.com/share?url=https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <i class="ic ic-googleplus"></i><span class="hidden">Google+</span>
+                    </a>
+                    <div class="clear"></div>
+                </div>
+
+                <aside class="post-tags">
+<a href="https://chiamingyen.github.io/cmsimfly/blog/tag/2018fallcp.html">2018FallCP</a>                </aside>
+
+                <div class="clear"></div>
+
+
+                </section>
+
+                <script type="text/javascript">
+                    var disqus = 'kmolab-github';
+                    var disqus_shortname = 'kmolab-github';
+                    var disqus_identifier = '/2018-Fall-32-bit-Windows.html';
+                    var disqus_url = 'https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html';
+                </script>
+                <noscript>Please enable JavaScript to view the comments.</noscript>
+                <section class="post-comments">
+                        <a id="show-disqus" class="post-comments-activate" data-disqus-identifier="/2018-Fall-32-bit-Windows.html" >Show Comments</a>
+                    <div id="disqus_thread"></div>
+                </section>
+
+                <aside class="post-nav">
+                    <a class="post-nav-next" href="https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-Python-Getting-Started.html">
+                        <section class="post-nav-teaser">
+                            <i class="ic ic-arrow-left"></i>
+                                <h2 class="post-nav-title">Python Getting Started</h2>
+                            <p class="post-nav-excerpt">以下程式架構取自 http://lab.kmol.info/blog/brython-programming-environment.html, 使用 static/py/...</p>
+                        </section>
+                    </a>
+                    <div class="clear"></div>
+                </aside>
+
+            </div>
+        </article>
+    </main>
+      <!-- TODO : Body class -->
+    <div id="body-class" style="display: none;" class=""></div>
+
+    <footer id="footer">
+      <div class="inner">
+        <section class="credits">
+
+
+          <span class="credits-theme">Theme <a href="https://github.com/arulrajnet/attila" rel="nofollow">Attila</a></span>
+          <span class="credits-software">Published with <a href="https://github.com/getpelican/pelican" rel="nofollow">Pelican</a></span>
+        </section>
+      </div>
+    </footer>
+  </section>
+  
+  <script type="text/javascript" src="https://chiamingyen.github.io/cmsimfly/blog/theme/js/script.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'kmolab-github';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+ 
+
+
+</body>
+</html>

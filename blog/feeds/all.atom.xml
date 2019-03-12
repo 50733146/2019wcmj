@@ -1,0 +1,932 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>CMSimfly 網際內容管理</title><link href="https://chiamingyen.github.io/cmsimfly/blog/" rel="alternate"></link><link href="https://chiamingyen.github.io/cmsimfly/blog/feeds/all.atom.xml" rel="self"></link><id>https://chiamingyen.github.io/cmsimfly/blog/</id><updated>2018-09-11T11:00:00+08:00</updated><entry><title>Python Getting Started</title><link href="https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-Python-Getting-Started.html" rel="alternate"></link><published>2018-09-11T11:00:00+08:00</published><updated>2018-09-11T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:chiamingyen.github.io,2018-09-11:/cmsimfly/blog/2018-Fall-Python-Getting-Started.html</id><summary type="html">&lt;p&gt;以下程式架構取自 &lt;a href="http://lab.kmol.info/blog/brython-programming-environment.html"&gt;http://lab.kmol.info/blog/brython-programming-environment.html&lt;/a&gt;, 使用 static/py/ 目錄中的 ace.py 程式定義.&lt;/p&gt;
+
+
+&lt;!-- 導入 FileSaver 與 filereader --&gt;
+
+&lt;script type="text/javascript" src="./../static/ace/FileSaver.min.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../static/ace/filereader.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../static/brython.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../static/brython_stdlib.js"&gt;&lt;/script&gt;
+
+&lt;!-- 導入平面機構模擬所需程式庫 --&gt;
+
+&lt;!-- sylvester.js 為向量、矩陣與幾何程式庫 http://sylvester.jcoglan.com/ --&gt;
+
+&lt;script src="./../static/sylvester/sylvester.js"&gt;&lt;/script&gt;
+
+&lt;!-- PrairieDraw.js 為延伸 sylvester.js 的 html5 canvas 繪圖應用程式庫 https://github.com/martin70/PrairieDraw.js --&gt;
+
+&lt;script src="./../static/sylvester/PrairieDraw.js"&gt;&lt;/script&gt;
+
+&lt;style&gt;
+canvas {
+    border: 1px solid black;
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+window.onload=function(){
+brython({debug:1, pythonpath:['./../static']});
+}
+&lt;/script&gt;
+
+&lt;!-- 以下執行 Brython 程式 --&gt;
+
+&lt;script src="./../static/ace/ace.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../static/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../static/ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../static/ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--&gt;
+
+&lt;script type="text/javascript"&gt;
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob …&lt;/script&gt;</summary><content type="html">&lt;p&gt;以下程式架構取自 &lt;a href="http://lab.kmol.info/blog/brython-programming-environment.html"&gt;http://lab.kmol.info/blog/brython-programming-environment.html&lt;/a&gt;, 使用 static/py/ 目錄中的 ace.py 程式定義.&lt;/p&gt;
+
+
+&lt;!-- 導入 FileSaver 與 filereader --&gt;
+
+&lt;script type="text/javascript" src="./../static/ace/FileSaver.min.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../static/ace/filereader.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../static/brython.js"&gt;&lt;/script&gt;
+
+&lt;script type="text/javascript" src="./../static/brython_stdlib.js"&gt;&lt;/script&gt;
+
+&lt;!-- 導入平面機構模擬所需程式庫 --&gt;
+
+&lt;!-- sylvester.js 為向量、矩陣與幾何程式庫 http://sylvester.jcoglan.com/ --&gt;
+
+&lt;script src="./../static/sylvester/sylvester.js"&gt;&lt;/script&gt;
+
+&lt;!-- PrairieDraw.js 為延伸 sylvester.js 的 html5 canvas 繪圖應用程式庫 https://github.com/martin70/PrairieDraw.js --&gt;
+
+&lt;script src="./../static/sylvester/PrairieDraw.js"&gt;&lt;/script&gt;
+
+&lt;style&gt;
+canvas {
+    border: 1px solid black;
+}
+&lt;/style&gt;
+
+&lt;script&gt;
+window.onload=function(){
+brython({debug:1, pythonpath:['./../static']});
+}
+&lt;/script&gt;
+
+&lt;!-- 以下執行 Brython 程式 --&gt;
+
+&lt;script src="./../static/ace/ace.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../static/ace/ext-language_tools.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../static/ace/mode-python3.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;script src="./../static/ace/snippets/python.js" type="text/javascript" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--&gt;
+
+&lt;script type="text/javascript"&gt;
+function doSave(storage_id, filename){
+    var blob = new Blob([localStorage[storage_id]], {type: "text/plain;charset=utf-8"});
+    filename = document.getElementById(filename).value
+    saveAs(blob, filename+".py");
+}
+&lt;/script&gt;
+
+&lt;p&gt;編寫 Python3 程式邏輯之前必須先了解基本的程式語法, 其中包括:&lt;/p&gt;
+&lt;h2&gt;Python3 變數命名規則與關鍵字&lt;/h2&gt;
+&lt;p&gt;Python 英文變數命名規格&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;變數必須以英文字母大寫或小寫或底線開頭
+變數其餘字元可以是英文大小寫字母, 數字或底線
+變數區分英文大小寫
+變數不限字元長度
+不可使用關鍵字當作變數名稱
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;使用者可以利用以下程式列出所使用 Python 的版次與關鍵字:&lt;/p&gt;
+&lt;!-- 印出版次與關鍵字程式 --&gt;
+
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+# Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
+Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
+
+Ace.editor.setValue('''# 導入 sys 模組
+import sys
+# 導入 keyword 模組
+import keyword
+
+# 利用 sys 模組中的 version_info 印出 Python 版次
+print("Python version: ", sys.version_info)
+# 利用 keyword 模組中的 kwlist 印出關鍵字
+print("Python keywords: ", keyword.kwlist)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['kw_run'].bind('click', Ace.run)
+doc['kw_show_console'].bind('click', Ace.show_console)
+doc['kw_clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="kw_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="kw_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('kw_py_src', 'kw_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="kw_run"&gt;Run&lt;/button&gt;
+&lt;button id="kw_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="kw_clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="kw_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;Python3 的程式關鍵字, 使用者命名變數時, 必須避開下列保留字.&lt;/p&gt;
+&lt;p&gt;Python keywords:  ['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']&lt;/p&gt;
+&lt;p&gt;選擇好的變數名稱:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;使用有意義且適當長度的變數名稱， 例如: 使用 length 代表長度, 不要單獨使用 l 或 L, 也不要使用 this_is_the_length
+程式前後變數命名方式盡量一致, 例如: 使用 rect_length 或 RectLength
+用底線開頭的變數通常具有特殊意義
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h2&gt;print() 函式用法&lt;/h2&gt;
+&lt;p&gt;print() 為 Python 程式語言中用來列印數值或字串的函式, 其中有 sep 變數定義分隔符號, sep 內定為 ",", end 變數則用來定義列印結尾的符號, end 內定為跳行符號.&lt;/p&gt;
+&lt;h2&gt;for 迴圈用法與 Python 的縮排規定&lt;/h2&gt;
+&lt;p&gt;重複迴圈用法, 使用者可以透過下列程式編輯區練習 for 迴圈與 print() 函式的用法.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="editor", console_id="console", container_id="first_container", storage_id="py_src" )
+
+Ace.editor.setValue('''#ex1 簡單的 for 迴圈範例
+for i in range(10):
+    print(i)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['run'].bind('click', Ace.run)
+doc['show_console'].bind('click', Ace.show_console)
+doc['clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('py_src', 'filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="run"&gt;Run&lt;/button&gt;
+&lt;button id="show_console"&gt;Output&lt;/button&gt;
+&lt;button id="clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;h2&gt;函式用法與呼叫&lt;/h2&gt;
+&lt;p&gt;使用者可以利用下列程式, 練習 def 函式定義與呼叫的用法.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="fun_editor", console_id="fun_console", container_id="fun_container", storage_id="fun_py_src" )
+
+Ace.editor.setValue('''# 定義函式
+def square_of_x(x):
+    return x*x
+
+# 呼叫函式
+y = square_of_x(3)
+# 列印 y 對應內容
+print(y)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['fun_run'].bind('click', Ace.run)
+doc['fun_show_console'].bind('click', Ace.show_console)
+doc['fun_clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="fun_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="fun_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('fun_py_src', 'fun_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="fun_run"&gt;Run&lt;/button&gt;
+&lt;button id="fun_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="fun_clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="fun_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;!-- Brython 的網際繪圖 --&gt;
+
+&lt;p&gt;以下網際繪圖程式, 僅提供參考.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="by_editor", console_id="by_console", container_id="by_container", storage_id="by_py_src" )
+
+Ace.editor.setValue('''# First of all, the import of some libraries
+from browser import document as doc
+from browser import html
+
+# All the elements will be inserted in the div with the "container" id
+container = doc['by_container']
+
+# We create a new div element
+newdiv = html.DIV(id = "new-div")
+# Now we add some style
+newdiv.style = {"padding": "5px", 
+               "backgroundColor": "#ADD8E6"}
+
+# Now, lets add a table with a column with numbers and a
+# column with a word on each cell
+text = "Brython is really cool"
+textlist = text.split()
+table = html.TABLE()
+for i, word in enumerate(textlist):
+    table &lt;= html.TR(html.TD(i + 1) + 
+                     html.TD(word))
+# Now we add some style to the table
+table.style = {"padding": "5px", 
+               "backgroundColor": "#aaaaaa",
+               "width": "100%"}
+# Now we add the table to the new div previously created
+newdiv &lt;= table + html.BR()
+
+# a form? why not?
+form = html.FORM()
+input1 = html.INPUT(type="text", name="firstname", value="First name")
+input2 = html.INPUT(type="text", name="lastname", value="Last name")
+input3 = html.BUTTON("Button with no action!")
+form &lt;= input1 + html.BR() + input2 + html.BR() + input3
+
+newdiv &lt;= form + html.BR()
+
+# Finally, we will add something more 'HTML5istic', a canvas with
+# a color gradient in the newdiv previously created and below the form
+canvas = html.CANVAS(width = 300, height = 300)
+#canvas.style = {"width": "100%"}
+ctx = canvas.getContext('2d')
+ctx.rect(0, 0, 300, 300)
+grd = ctx.createRadialGradient(150, 150, 10, 150, 150, 150)
+grd.addColorStop(0, '#8ED6FF')
+grd.addColorStop(1, '#004CB3')
+ctx.fillStyle = grd
+ctx.fill()
+
+newdiv &lt;= canvas
+# And finally we append the newdiv element
+# to the parent, in this case the div with the "container" id
+container &lt;= newdiv
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['by_run'].bind('click', Ace.run)
+doc['by_show_console'].bind('click', Ace.show_console)
+doc['by_clear_console'].bind('click', Ace.clear_console)
+doc['by_clear_container'].bind('click', Ace.clear_container)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="by_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="by_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('by_py_src', 'by_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="by_run"&gt;Run&lt;/button&gt;
+&lt;button id="by_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="by_clear_console"&gt;清除&lt;/button&gt;
+&lt;button id="by_clear_container"&gt;清除畫布&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="by_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;div id="by_container"&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;!-- Brython 動畫 --&gt;
+
+&lt;p&gt;以下網際動態繪圖程式, 僅提供參考.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="clock_editor", console_id="clock_console", container_id="clock_container", storage_id="clock_py_src" )
+
+Ace.editor.setValue('''# First of all, the import of some libraries
+import time
+import math
+import datetime
+from browser import document as doc
+import browser.timer
+from browser import html
+
+sin,cos = math.sin,math.cos
+width,height = 250,250 # canvas dimensions
+ray = 100 # clock ray
+
+# All the elements will be inserted in the div with the "container" id
+container = doc['clock_container']
+
+# We create a new div element
+newdiv = html.DIV(id = "new-div")
+# Now we add some style
+newdiv.style = {"padding": "5px", 
+               "backgroundColor": "#ADD8E6"}
+
+canvas = html.CANVAS(width = width, height = height)
+#canvas.style = {"width": "100%"}
+ctx = canvas.getContext('2d')
+
+def needle(angle,r1,r2,color="#000000"):
+    # draw a needle at specified angle in specified color
+    # r1 and r2 are percentages of clock ray
+    x1 = width/2-ray*cos(angle)*r1
+    y1 = height/2-ray*sin(angle)*r1
+    x2 = width/2+ray*cos(angle)*r2
+    y2 = height/2+ray*sin(angle)*r2
+    ctx.beginPath()
+    ctx.strokeStyle = color
+    ctx.moveTo(x1,y1)
+    ctx.lineTo(x2,y2)
+    ctx.stroke()
+
+def set_clock():
+    # erase clock
+    ctx.beginPath()
+    ctx.fillStyle = "#FFF"
+    ctx.arc(width/2,height/2,ray*0.89,0,2*math.pi)
+    ctx.fill()
+
+    # redraw hours
+    show_hours()
+
+    # print day
+    now = datetime.datetime.now()
+    day = now.day
+    ctx.font = "bold 14px Arial"
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+    ctx.fillStyle="#FFF"
+    ctx.fillText(day,width*0.7,height*0.5)
+
+    # draw needles for hour, minute, seconds    
+    ctx.lineWidth = 3
+    hour = now.hour%12 + now.minute/60
+    angle = hour*2*math.pi/12 - math.pi/2
+    needle(angle,0.05,0.5)
+    minute = now.minute
+    angle = minute*2*math.pi/60 - math.pi/2
+    needle(angle,0.05,0.85)
+    ctx.lineWidth = 1
+    second = now.second+now.microsecond/1000000
+    angle = second*2*math.pi/60 - math.pi/2
+    needle(angle,0.05,0.85,"#FF0000") # in red
+
+browser.timer.set_interval(set_clock,100)
+
+ctx.beginPath()
+ctx.lineWidth = 10
+ctx.arc(width/2,height/2,ray,0,2*math.pi)
+ctx.stroke()
+
+for i in range(60):
+    ctx.lineWidth = 1
+    if i%5 == 0:
+        ctx.lineWidth = 3
+    angle = i*2*math.pi/60 - math.pi/3
+    x1 = width/2+ray*cos(angle)
+    y1 = height/2+ray*sin(angle)
+    x2 = width/2+ray*cos(angle)*0.9
+    y2 = height/2+ray*sin(angle)*0.9
+    ctx.beginPath()
+    ctx.moveTo(x1,y1)
+    ctx.lineTo(x2,y2)
+    ctx.stroke()
+
+def show_hours():
+    ctx.beginPath()
+    ctx.arc(width/2,height/2,ray*0.05,0,2*math.pi)
+    ctx.fillStyle = "#000"
+    ctx.fill()
+    for i in range(1,13):
+        angle = i*math.pi/6-math.pi/2
+        x3 = width/2+ray*cos(angle)*0.75
+        y3 = height/2+ray*sin(angle)*0.75
+        ctx.font = "20px Arial"
+        ctx.textAlign = "center"
+        ctx.textBaseline = "middle"
+        ctx.fillText(i,x3,y3)
+    # cell for day
+    ctx.fillStyle = "#000"
+    ctx.fillRect(width*0.65,height*0.47,width*0.1,height*0.06)
+
+show_hours()
+set_clock()
+
+newdiv &lt;= canvas
+# And finally we append the newdiv element
+# to the parent, in this case the div with the "container" id
+container &lt;= newdiv
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['clock_run'].bind('click', Ace.run)
+doc['clock_show_console'].bind('click', Ace.show_console)
+doc['clock_clear_console'].bind('click', Ace.clear_console)
+doc['clock_clear_container'].bind('click', Ace.clear_container)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="clock_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="clock_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('clock_py_src', 'clock_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="clock_run"&gt;Run&lt;/button&gt;
+&lt;button id="clock_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="clock_clear_console"&gt;清除&lt;/button&gt;
+&lt;button id="clock_clear_container"&gt;清除畫布&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="clock_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;div id="clock_container"&gt;&lt;/div&gt;&lt;/p&gt;
+&lt;h2&gt;基本物件導向與案例&lt;/h2&gt;
+&lt;p&gt;Python 採用類別 (class) 將案例變數 (instance variables) 與案例方法 (instance methods) 包在一起, 並用來定義一種物件 (object).&lt;/p&gt;
+&lt;p&gt;物件導向具有封裝 (encapsulation) , 繼承 (inheritance) 與多形 ( polymorphism) 等三種特性.&lt;/p&gt;
+&lt;!-- oop 範例 --&gt;
+
+&lt;p&gt;使用者可以利用下列程式練習 Python3 物件的定義與應用.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="oop1_editor", console_id="oop1_console", container_id="oop1_container", storage_id="oop1_py_src" )
+
+Ace.editor.setValue('''# Robot class 定義
+class Robot(object):
+    def __init__(self, name, by):
+        self._name = name
+        self._build_year = by
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, newname):
+        self._name = name
+
+    @property
+    def build_year(self):
+        return self._build_year
+
+    @build_year.setter
+    def build_year(self, newby):
+        self._build_year = newby
+
+x = Robot("bob", 1993)
+x.build_year = 1993
+print(x.name)
+print(x.build_year)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['oop1_run'].bind('click', Ace.run)
+doc['oop1_show_console'].bind('click', Ace.show_console)
+doc['oop1_clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="oop1_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="oop1_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('oop1_py_src', 'oop1_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="oop1_run"&gt;Run&lt;/button&gt;
+&lt;button id="oop1_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="oop1_clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="oop1_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;!-- 必須處理重複執行後機構模擬產生錯誤的問題 --&gt;
+
+&lt;p&gt;以下平面機構動態模擬程式, 僅提供參考.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+import ace
+
+Ace = ace.Editor(editor_id="link_editor", console_id="link_console", container_id="fourbar", storage_id="link_py_src" )
+
+Ace.editor.setValue('''# 導入所需模組
+from browser import document as doc
+from browser import window
+from browser import timer
+from browser import html
+import math
+
+# 利用 window 擷取 PrairieDraw 程式庫變數物件, 然後以 new 方法轉為 Brython 變數
+pdraw = window.PrairieDraw.new
+# 利用 window 擷取 PrairieDrawAnim 程式庫變數物件, 然後以 new 方法轉為 Brython 變數
+PrairieDrawAnim = window.PrairieDrawAnim.new
+
+# 利用 window 擷取 sylvester 程式庫變數物件 Vector, 並將其 create 方法直接轉為 Brython 變數
+# 在 sylvester 中的 $V 簡化變數無法直接在 Brython 程式中引用
+vector = window.Vector.create
+
+# 在 "fourbar" 畫布中建立 panim 動態模擬案例
+panim = PrairieDrawAnim("fourbar")
+
+# 平面連桿繪圖以 t = 0 起始
+t = 0
+# 控制轉動方向變數
+direction = True
+
+# 繪製不同 t 時間下的平面連桿
+def draw():
+    global t, direction, fast
+    # 設定模擬繪圖範圍
+    panim.setUnits(6, 6)
+    # 設定箭頭線寬
+    panim.setProp("arrowLineWidthPx",2)
+
+    # 起始變數設定
+    omega = 1
+    length_bar1 = 1
+    length_bar2 = 26/18
+    length_bar3 = 2
+    length_base = 40/18
+    time = 0
+
+    # 畫出地面直線
+    G = vector([0, -0.5])
+    panim.ground(G, vector([0, 1]), 10)
+
+    # 連桿長度與角度計算
+    A = t*omega # "theta"
+    AD = length_bar1 #length of left bar
+    AB = length_base #distance between two stationary pivots
+    BC = length_bar3 #length of right bar
+    CD = length_bar2 #length of middle bar
+    BD = math.sqrt(AD*AD + AB*AB - 2*AD*AB*math.cos(A))
+    C = math.acos((BC*BC + CD*CD - BD*BD)/(2*BC*CD))
+    ABD = math.asin(CD * math.sin(C) / BD)
+    DBC = math.asin(AD * math.sin(A) / BD)
+    B = ABD + DBC
+    D = math.pi - B - C
+
+    # draw pivot
+    pivot_left = vector([AB/-2, 0])
+    pivot_right = vector([AB/2, 0])
+    panim.pivot(vector([pivot_left.e(1), -0.5]), pivot_left, 0.5)
+    panim.pivot(vector([pivot_right.e(1), -0.5]), pivot_right, 0.5)
+
+    # 儲存轉換矩陣
+    panim.save()
+    #FIRST BAR
+    panim.translate(pivot_left)
+    panim.rotate(A)
+    panim.rod(vector([0,0]), vector([AD,0]), 0.25)
+    panim.point(vector([0,0]))
+
+    #SECOND BAR
+    panim.translate(vector([AD,0]))
+    panim.rotate(A*-1)  #"undo" the original A rotation
+    panim.rotate(D)     #rotate by D only
+    panim.rod(vector([0,0]), vector([CD,0]), 0.25)
+    panim.point(vector([0,0]))
+
+    #THIRD BAR
+    panim.translate(vector([CD,0]))
+    panim.rotate(math.pi+C)
+    panim.rod(vector([0,0]), vector([BC,0]), 0.25)
+    panim.point(vector([0,0]))
+    # 回復原先的轉換矩陣
+    panim.restore()
+
+    panim.point(vector([pivot_right.e(1), 0]))
+    # 時間增量
+    if direction == True:
+        t += 0.08
+    else:
+        t += -0.08
+
+# 先畫出 t = 0 的連桿機構
+draw()
+
+# 將 anim 設為 None
+anim = None
+
+def launchAnimation(ev):
+    global anim
+    # 初始啟動, anim 為 None
+    if anim is None:
+        # 每 0.08 秒執行一次 draw 函式繪圖
+        anim = timer.set_interval(draw, 80)
+        # 初始啟動後, 按鈕文字轉為"暫停"
+        doc['power'].text = '暫停'
+    elif anim == 'hold':
+        # 當 anim 為 'hold' 表示曾經暫停後的啟動, 因此持續以 set_interval() 持續旋轉, 且將 power 文字轉為"暫停"
+        anim = timer.set_interval(draw, 80)
+        doc['power'].text = '暫停'
+    else:
+        # 初始啟動後, 使用者再按 power, 此時 anim 非 None 也不是 'hold', 因此會執行 clear_interval() 暫停
+        # 且將 anim 變數設為 'hold', 且 power 文字轉為"繼續"
+        timer.clear_interval(anim)
+        anim = 'hold'
+        doc['power'].text = '繼續'
+
+def reverse(ev):
+    global anim, direction
+    # 當 anim 為 hold 時, 按鈕無效
+    if anim != "hold":
+        if direction == True:
+            direction = False
+        else:
+            direction = True
+
+doc["power"].bind("click", launchAnimation)
+doc["reverse"].bind("click", reverse)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['link_run'].bind('click', Ace.run)
+doc['link_show_console'].bind('click', Ace.show_console)
+doc['link_clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="link_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="link_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('link_py_src', 'link_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="link_run"&gt;Run&lt;/button&gt;
+&lt;button id="link_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="link_clear_console"&gt;清除&lt;/button&gt;
+&lt;button id="power"&gt;啟動&lt;/button&gt;
+&lt;button id="reverse"&gt;反向&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="link_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;
+&lt;canvas id="fourbar" width="250" height="250"&gt;&lt;/canvas&gt;&lt;/p&gt;
+&lt;h2&gt;平面機構運動模擬&lt;/h2&gt;
+&lt;p&gt;以下為 Jansen's 八連桿機構的基本 Kinematic 運算, 先採用 Sympy 以符號式推導出機構端點的運動軌跡方程式後, 利用 Python 執行數值分析運算, 列出機構端點的座標.&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+# 表示要導入 data/py/ace.py
+import ace
+
+Ace = ace.Editor(editor_id="jansen_editor", console_id="jansen_console", container_id="jansen_container", storage_id="jansen_py_src" )
+
+Ace.editor.setValue('''#jansen 多連桿機構驗算
+from math import pi, cos, sin, sqrt, acos
+
+radian = 180/pi
+degree = pi/180
+
+#PLAP
+def plap(ax, ay, ac, bac, bx, by, ccw):
+    if ccw == 1:
+        cx= ac*cos(bac - acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ax 
+        cy= ac*sin(bac - acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ay
+    else:
+        cx= ac*cos(bac + acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ax 
+        cy= ac*sin(bac + acos((ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 + abs(ax - bx)**2 - abs(ay - by)**2)/(2*sqrt(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2)*abs(ax - bx)))) + ay
+    return cx, cy
+
+#PLLP
+def pllp(ax, ay, ac, cb, bx, by, cw):
+    if cw == 1:
+        cx =  -((ay - by)*(-ac**2*ay + ac**2*by + ax**2*ay + ax**2*by - 2*ax*ay*bx - 2*ax*bx*by + ay**3 - ay**2*by + ay*bx**2 - ay*by**2 + ay*cb**2 + bx**2*by + by**3 - by*cb**2 - sqrt((-ac**2 + 2*ac*cb + ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 - cb**2)*(ac**2 + 2*ac*cb - ax**2 + 2*ax*bx - ay**2 + 2*ay*by - bx**2 - by**2 + cb**2))*(ax - bx)) + (ac**2 - ax**2 - ay**2 + bx**2 + by**2 - cb**2)*(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2))/(2*(ax - bx)*(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2))
+        cy =  (-ac**2*ay + ac**2*by + ax**2*ay + ax**2*by - 2*ax*ay*bx - 2*ax*bx*by + ay**3 - ay**2*by + ay*bx**2 - ay*by**2 + ay*cb**2 + bx**2*by + by**3 - by*cb**2 + sqrt((-ac**2 + 2*ac*cb + ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 - cb**2)*(ac**2 + 2*ac*cb - ax**2 + 2*ax*bx - ay**2 + 2*ay*by - bx**2 - by**2 + cb**2))*(-ax + bx))/(2*(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2))
+    else:
+        cx =  -((ay - by)*(-ac**2*ay + ac**2*by + ax**2*ay + ax**2*by - 2*ax*ay*bx - 2*ax*bx*by + ay**3 - ay**2*by + ay*bx**2 - ay*by**2 + ay*cb**2 + bx**2*by + by**3 - by*cb**2 + sqrt((-ac**2 + 2*ac*cb + ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 - cb**2)*(ac**2 + 2*ac*cb - ax**2 + 2*ax*bx - ay**2 + 2*ay*by - bx**2 - by**2 + cb**2))*(ax - bx)) + (ac**2 - ax**2 - ay**2 + bx**2 + by**2 - cb**2)*(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2))/(2*(ax - bx)*(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2))
+        cy =  (-ac**2*ay + ac**2*by + ax**2*ay + ax**2*by - 2*ax*ay*bx - 2*ax*bx*by + ay**3 - ay**2*by + ay*bx**2 - ay*by**2 + ay*cb**2 + bx**2*by + by**3 - by*cb**2 + sqrt((-ac**2 + 2*ac*cb + ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2 - cb**2)*(ac**2 + 2*ac*cb - ax**2 + 2*ax*bx - ay**2 + 2*ay*by - bx**2 - by**2 + cb**2))*(ax - bx))/(2*(ax**2 - 2*ax*bx + ay**2 - 2*ay*by + bx**2 + by**2))
+    return cx, cy
+
+ax = -38
+ay = 0
+# b 為原點
+bx = 0
+by = 0
+cx = 0
+cy = 7.8
+# m 為配合 PLAP 新增固定點
+mx = 30
+my = 7.8
+# dcm ccw 方向角度
+dcm = 30*degree
+cd = 15
+# 三角形 dcm 為 ccw plap d=(a, cd, dcm, m)
+dx, dy = plap(cx, cy, cd, dcm, mx, my, ccw=1)
+print("dx=", dx, "dy=", dy)
+# 三角形 aed 為 cw pllp e=(a, ae, ed, d)
+ae = 41.5
+ed = 50
+ex, ey = pllp(ax, ay, ae, ed, dx, dy, cw=1)
+print("ex=", ex, "ey=", ey)
+# 三角形 afe 為 cw pllp f=(a, af, fe, e)
+af = 40.1
+fe = 55.8
+fx, fy = pllp(ax, ay, af, fe, ex, ey, cw=1)
+print("fx=", fx, "fy=", fy)
+# 三角形 dha 為 cw pllp h=(d, dh, ha, a)
+dh = 61.9
+ha = 39.3
+hx, hy = pllp(dx, dy, dh, ha, ax, ay, cw=1)
+print("hx=", hx, "hy=", hy)
+# 三角形 hgf 為 cw pllp g=(h, hg, gf, f)
+hg = 36.7
+gf = 39.4
+gx, gy = pllp(hx, hy, hg, gf, fx, fy, cw=1)
+print("gx=", gx, "gy=", gy)
+# 三角形 hkg 為 cw pllp k=(h, hk, kg, g)
+hk = 49
+kg = 65.7
+kx, ky = pllp(hx, hy, hk, kg, gx, gy, cw=1)
+print("kx=", kx, "ky=", ky)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['jansen_run'].bind('click', Ace.run)
+doc['jansen_show_console'].bind('click', Ace.show_console)
+doc['jansen_clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="jansen_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="jansen_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('jansen_py_src', 'jansen_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="jansen_run"&gt;Run&lt;/button&gt;
+&lt;button id="jansen_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="jansen_clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="jansen_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;以下為與上述 Jansen's 八連桿機構對應的座標驗證圖, 機構端點座標 kx= -30.81 ky= -84.02:&lt;/p&gt;
+&lt;p&gt;&lt;img src="./../images/jansen_sympy.png" width="800" height="600"&gt;&lt;/img&gt;&lt;/p&gt;
+&lt;h2&gt;平面機構數目合成&lt;/h2&gt;
+&lt;p&gt;itertools module implements a number of iterator building blocks.&lt;/p&gt;
+&lt;p&gt;itertools.product(*iterables, repeat=1) - Cartesian product of input iterables.&lt;/p&gt;
+&lt;p&gt;根據 &lt;a href="http://www.iftomm2015.tw/IFToMM2015CD/PDF/OS2-048.pdf"&gt;http://www.iftomm2015.tw/IFToMM2015CD/PDF/OS2-048.pdf&lt;/a&gt; (or &lt;a href="./../data/pdf/An_Algorithm_for_the_Automatic_Sketching_of_Generalized_Kinematic_Chains.pdf"&gt;local download&lt;/a&gt;)&lt;/p&gt;
+&lt;script type="text/python3"&gt;
+from browser import document as doc
+# 表示要導入 data/py/ace.py
+import ace
+
+Ace = ace.Editor(editor_id="numsyn_editor", console_id="numsyn_console", container_id="numsyn_container", storage_id="numsyn_py_src" )
+
+Ace.editor.setValue('''#數目合成
+from itertools import product
+
+# NL links and NJ joints as inputs
+class NumberSynthesis:
+    def __init__(self, NL, NJ):
+        self.NL = NL
+        self.NJ = NJ
+
+    @property
+    def Mmax(self):
+        if self.NL &lt;= self.NJ and self.NJ &lt;= (2*self.NL-3):
+            return self.NJ - self.NL + 2
+        elif (2*self.NL-3) &lt;= self.NJ and self.NJ &lt;= (self.NL*(self.NL-1)/2):
+            return self.NL - 1
+        else:
+            raise ValueError("incorrect number.")
+
+    @property
+    def NLm(self):
+        result = []
+        correction = lambda l: sum((i+2)*l[i] for i in range(len(l))) == 2*self.NJ
+        for symbols in product(range(self.NL+1), repeat=self.Mmax-2):
+            NLMmax = self.NL - sum(symbols)
+            answer = symbols+(NLMmax,)
+            if correction(answer) and NLMmax&gt;=0:
+                result.append(answer)
+        return tuple(result)
+
+a = NumberSynthesis(9, 11)
+print("the maximum number of joints incident to a link: ", a.Mmax)
+print("link assortments of the generalized kinematic chains: ", a.NLm)
+''')
+Ace.editor.scrollToRow(0)
+Ace.editor.gotoLine(0)
+
+# 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
+doc['numsyn_run'].bind('click', Ace.run)
+doc['numsyn_show_console'].bind('click', Ace.show_console)
+doc['numsyn_clear_console'].bind('click', Ace.clear_console)
+&lt;/script&gt;
+
+&lt;!-- 用來顯示程式碼的 editor 區域 --&gt;
+
+&lt;div id="numsyn_editor" style="width:600px;height:300px;"&gt;&lt;/div&gt;
+
+&lt;!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --&gt;
+
+&lt;form&gt;
+    &lt;label&gt;Filename: &lt;input type="text" id="numsyn_filename" placeholder="input file name"/&gt;.py&lt;/label&gt;
+    &lt;input type="submit" value="Save" onclick="doSave('numsyn_py_src', 'numsyn_filename');"/&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;button id="numsyn_run"&gt;Run&lt;/button&gt;
+&lt;button id="numsyn_show_console"&gt;Output&lt;/button&gt;
+&lt;button id="numsyn_clear_console"&gt;清除&lt;/button&gt;
+&lt;div style="width:100%;height:100%;"&gt;
+&lt;textarea id="numsyn_console" autocomplete="off"&gt;&lt;/textarea&gt;
+&lt;/div&gt;&lt;/p&gt;
+&lt;p&gt;目前所在頁面, 分別利用 &lt;a href="http://brython.info/"&gt;Brython&lt;/a&gt; 與 &lt;a href="https://ace.c9.io/"&gt;Ace&lt;/a&gt; 編輯器, 可直接在網誌中執行 Python3 程式, 基本架構為將 &lt;a href="http://brython.info/"&gt;Brython&lt;/a&gt; 的標準輸出轉到特定 div 標註, 而 &lt;a href="https://ace.c9.io/"&gt;Ace&lt;/a&gt; 編輯器則設為與其內的程式碼相同長度, 但至多只會在頁面中顯示 20 行, 且編輯器內的程式碼使用 12 號字元.&lt;/p&gt;
+&lt;p&gt;ace.py 原始碼, 位於 static 目錄中, 將原先只能單一呼叫的函式改為物件, 可以在同一頁面中產生案例時, 透過各標註的 id 字串區分各段程式碼, 是本課程 Python3 物件導向程式的實際應用範例, 謹提供參考.&lt;/p&gt;</content><category term="2018FallCP"></category></entry><entry><title>2018 Fall CP 課程</title><link href="https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html" rel="alternate"></link><published>2018-09-10T11:00:00+08:00</published><updated>2018-09-10T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:chiamingyen.github.io,2018-09-10:/cmsimfly/blog/2018-Fall-32-bit-Windows.html</id><summary type="html">&lt;p&gt;2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題. 只有 Eric6 因為缺少必要模組與 Python 3.7.0 對應的 pyqt5-tools, 因此沒有安裝.&lt;/p&gt;
+
+
+&lt;h2&gt;電腦規格&lt;/h2&gt;
+&lt;p&gt;目前系上已經沒有 32 位元 Windows 操作系統的電腦, 所以先前只要有學生提到所使用的電腦是舊型 32 位元的 Windows XP 或 Windows …&lt;/p&gt;</summary><content type="html">&lt;p&gt;2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題. 只有 Eric6 因為缺少必要模組與 Python 3.7.0 對應的 pyqt5-tools, 因此沒有安裝.&lt;/p&gt;
+
+
+&lt;h2&gt;電腦規格&lt;/h2&gt;
+&lt;p&gt;目前系上已經沒有 32 位元 Windows 操作系統的電腦, 所以先前只要有學生提到所使用的電腦是舊型 32 位元的 Windows XP 或 Windows 7, 都無法提供相應的可攜程式系統.&lt;/p&gt;
+&lt;p&gt;但是, 當您桌上就只一台早期 Sony 推出的 VGC-LM26T 電腦, 採用 Intel core 2 Duo T8100 2.1 GHz 裝載 32 位元 Windows 7, 記憶體只有 2GB 的老舊電腦.&lt;/p&gt;
+&lt;p&gt;夠用嗎?&lt;/p&gt;
+&lt;p&gt;當然可以, 使用的是特別製作的 &lt;a href="https://mde1a1.kmol.info/2017fall/raw/p37_32.7z?name=c272a694f98180f8d1272b43f7d7b4fdd8f7f550"&gt;32 位元可攜系統&lt;/a&gt;, 除了不支援 Eric6 之外, 其餘功能都與 64 位元的  &lt;a href="https://drive.google.com/file/d/1DWtyoUhl8CycKJ8uulB3viRXE39KqpE1/view?usp=sharing"&gt;p37&lt;/a&gt; 相同.&lt;/p&gt;
+&lt;h2&gt;工作流程&lt;/h2&gt;
+&lt;p&gt;從 2018 Fall 開始, 前半學期希望每位計算機程課程的學員, 都能透過 &lt;a href="http://mde.tw/cp2018/content/"&gt;2018 計算機程式教材&lt;/a&gt; 內容, 深入學習 Python 3 各種程式語法, 利用 &lt;a href="https://github.com/chiamingyen/cmsimfly"&gt;CMSimfly&lt;/a&gt;、&lt;a href="https://github.com/getpelican/pelican"&gt;Pelican&lt;/a&gt; 與 &lt;a href="https://revealjs.com/"&gt;Reveal.js&lt;/a&gt;, 熟悉如何在 &lt;a href="https://github.com/"&gt;Github&lt;/a&gt; 配置自己的網站、網誌與網際簡報系統.&lt;/p&gt;
+&lt;p&gt;使用時, 啟動隨身系統的 start.bat, 利用命令列指令, git clone https://github.com/mdecourse/2018fall, 然後將內容配置在各自的 &lt;a href="https://github.com/"&gt;Github&lt;/a&gt; 帳號下.&lt;/p&gt;
+&lt;h2&gt;程式專案&lt;/h2&gt;
+&lt;p&gt;早在 1999 年, 就已經開始進行所謂&lt;a href="https://webcache.googleusercontent.com/search?q=cache:sqYPNC8_mgoJ:https://www.most.gov.tw/sci/ch/detail%3Farticle_uid%3D4ee546e6-73fa-43a8-b1df-a5a0a1fe1824%26menu_id%3D0bac23e6-b3df-4fe0-b152-2e1050eb2f2c%26content_type%3DP%26view_mode%3DlistView+&amp;amp;cd=6&amp;amp;hl=zh-TW&amp;amp;ct=clnk&amp;amp;gl=tw"&gt;網際機械設計資源中心&lt;/a&gt;的構建, 想像中的資源中心是一套網際專家系統, 包含各式機械設計流程中所需的模組, 全部依附在一個相對穩定, 可以持續改進的核心架構下, 類似 &lt;a href="https://github.com/jhpyle/docassemble"&gt;docassemble&lt;/a&gt; 的一套系統.&lt;/p&gt;
+&lt;p&gt;將近二十年過去, &lt;a href="https://webcache.googleusercontent.com/search?q=cache:sqYPNC8_mgoJ:https://www.most.gov.tw/sci/ch/detail%3Farticle_uid%3D4ee546e6-73fa-43a8-b1df-a5a0a1fe1824%26menu_id%3D0bac23e6-b3df-4fe0-b152-2e1050eb2f2c%26content_type%3DP%26view_mode%3DlistView+&amp;amp;cd=6&amp;amp;hl=zh-TW&amp;amp;ct=clnk&amp;amp;gl=tw"&gt;網際機械設計資源中心&lt;/a&gt;始終仍只有片段系統, 其中包含 &lt;a href="https://github.com/chiamingyen/cmsimfly"&gt;CMSimfly&lt;/a&gt;、&lt;a href="https://github.com/chiamingyen/pygrouf"&gt;Pygrouf&lt;/a&gt; 與 &lt;a href="https://github.com/KmolYuan/Pyslvs-PyQt5"&gt;Pyslvs&lt;/a&gt; (&lt;a href="http://www.pyslvs.com/content/"&gt;Pyslvs 手冊&lt;/a&gt;)等相關專案.&lt;/p&gt;
+&lt;p&gt;就如同&lt;a href="http://blog.ez2learn.com/2009/06/27/how-to-write-useful-program/"&gt;如何寫出有用的程式?&lt;/a&gt; 一文中所述, "沒有興趣不要來念資工" 是一句非常貼切的警語, 當學生對於程式設計提不起興趣, 沒有將所學的各式語法、資料結構與演算法, 套用在自己非常有興趣的領域中, 用來解決各式問題的話, 日復一日, 我們還是寫不出任何有用的程式!&lt;/p&gt;
+&lt;h2&gt;早該起頭的重要工作&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.quora.com/Why-is-programming-so-important-in-the-modern-world"&gt;計算機程式的重要性&lt;/a&gt;其實已經無需爭辯, 人類未來的許多工作都是透過網路與數位運算達成, 既知趨勢如此, 每一位工程師就該越早起頭原本就該進行的重要工作, 透過計算機程式來解決問題, 構築一個值得長期投注心力的程式專案.&lt;/p&gt;</content><category term="2018FallCP"></category></entry></feed>

@@ -1,0 +1,177 @@
+<!doctype html>
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>CMSimfly</title> <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+<script src="tipuesearch_content.js"></script>
+<script src="./../static/jquery.js"></script>
+<link rel="stylesheet" href="./../static/tipuesearch/css/tipuesearch.css">
+<script src="./../static/tipuesearch/tipuesearch_set.js"></script>
+<script src="./../static/tipuesearch/tipuesearch.min.js"></script>
+
+<script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCSharp.js"></script>
+<link type="text/css" rel="stylesheet" href="./../static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- for LaTeX equations 暫時不用
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+-->
+<!-- 暫時不用
+<script src="./../static/fengari-web.js"></script>
+<script type="text/javascript" src="./../static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+
+<script type="text/javascript">
+/*shorthand of $(document).ready(function(){};); */
+$(function(){
+    $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
+    $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
+});
+function doSearch() {
+     $('#tipue_search_input').tipuesearch({
+        newWindow: true, minimumLength: 2
+     });
+}
+$(document).ready(doSearch);
+</script>
+
+</head><header><h1>CMSimfly - 動靜皆宜的簡潔網際內容管理</h1> <confmenu>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="sitemap.html">Site Map</a></li>
+<li><a href="./../reveal/index.html">reveal</a></li>
+<li><a href="./../blog/index.html">blog</a></li>
+
+</ul>
+</confmenu></header>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><div class="tipue_search_group"><input style="width: 6vw;" type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="Press enter key to search" required></div><li><a href='簡介.html'>簡介</a><li><a href='目錄結構.html'>目錄結構</a><li><a href='頁面編輯.html'>頁面編輯</a><ul><li><a href='插入程式碼.html'>插入程式碼</a><ul><li><a href='Java 程式碼.html'>Java 程式碼</a><li><a href='Python 程式碼.html'>Python 程式碼</a><li><a href='C或C++程式碼.html'>C或C++程式碼</a><li><a href='Lua 程式碼.html'>Lua 程式碼</a><li><a href='Javascript 程式碼.html'>Javascript 程式碼</a><li><a href='Html 原始碼.html'>Html 原始碼</a></li></li></ul></ul><li><a href='網際簡報.html'>網際簡報</a><li><a href='網誌編輯.html'>網誌編輯</a><li><a href='已知錯誤.html'>已知錯誤</a></li></ul></nav><section><div id="tipue_search_content">Python 程式碼 << <a href='Python 程式碼.html'>Previous</a> <a href='Lua 程式碼.html'>Next</a> >> Lua 程式碼<br /><h1>C或C++程式碼</h1>
+<p>請注意, 目前 CMSimfly 標題內文無法解讀 "/" 符號, 因此若本頁面的標題為  "C/C++程式碼", 則無法進行分頁.</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">/* Runge Kutta for a set of first order differential equations */
+ 
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+ 
+#define N 2 /* number of first order equations */
+#define dist 0.1 /* stepsize in t*/
+#define MAX 30.0 /* max for t */
+ 
+FILE *output; /* internal filename */
+FILE *output1; /* internal filename */
+// 利用 pipe 呼叫 gnuplot 繪圖
+FILE *pipe;
+ 
+void runge4(double x, double y[], double step); /* Runge-Kutta function */
+double f(double x, double y[], int i); /* function for derivatives */
+ 
+void main(){
+ 
+  double t, y[N];
+  int j;
+ 
+  output=fopen("osc.dat", "w"); /* external filename */
+  output1=fopen("osc1.dat", "w"); /* external filename */
+ 
+  y[0]=1.0; /* initial position */
+  y[1]=0.0; /* initial velocity */
+ 
+  //fprintf(output, "0\t%f\n", y[0]);
+ 
+  for (j=1; j*dist&lt;=MAX ;j++) /* time loop */{
+ 
+    t=j*dist;
+    runge4(t, y, dist);
+    fprintf(output, "%f\t%f\n", t, y[0]);
+    fprintf(output1, "%f\t%f\n", t, y[1]);
+  }
+ 
+  fclose(output);
+  fclose(output1);
+ 
+  pipe = popen("gnuplot -persist","w");
+  //fprintf(pipe,"set term png enhanced font \"v:/fireflysung.ttf\" 18 \n");
+  fprintf(pipe,"set term png enhanced font \"y:/wqy-microhei.ttc\" 18 \n");
+  //fprintf(pipe,"set yrange [68:70]\n");
+  fprintf(pipe,"set output \"test.png\"\n");
+  fprintf(pipe, "plot \"osc.dat\" title \"位移\" with lines, \"osc1.dat\" title \"速度\" with lines\n");
+  fprintf(pipe,"quit\n");
+
+  fprintf(pipe,"quit\n");
+  pclose(pipe);
+}
+ 
+void runge4(double x, double y[], double step){
+ 
+  double h=step/2.0, /* the midpoint */
+  t1[N], t2[N], t3[N], /* temporary storage arrays */
+  k1[N], k2[N], k3[N],k4[N]; /* for Runge-Kutta */
+  int i;
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    t1[i]=y[i]+0.5*(k1[i]=step*f(x,y,i));
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    t2[i]=y[i]+0.5*(k2[i]=step*f(x+h, t1, i));
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    t3[i]=y[i]+ (k3[i]=step*f(x+h, t2, i));
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    k4[i]= step*f(x+step, t3, i);
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    y[i]+=(k1[i]+2*k2[i]+2*k3[i]+k4[i])/6.0;
+  }
+}
+ 
+double f(double x, double y[], int i){
+ 
+  if (i==0)
+    x=y[1]; /* derivative of first equation */
+  if (i==1)
+    x=-y[0]-0.5*y[1];
+  return x;
+}</pre>
+<p></p><br />Python 程式碼 << <a href='Python 程式碼.html'>Previous</a> <a href='Lua 程式碼.html'>Next</a> >> Lua 程式碼</div></section></div></body></html>

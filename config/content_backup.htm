@@ -1,0 +1,443 @@
+<h1>簡介</h1>
+<p>CMSimfly (<a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly)</a> 是一套簡單的網際內容管理系統, 採用 Flask 網際框架, 以 Beautifulsoup 解讀分頁內容.</p>
+<p><img alt="" height="471" src="/images/gocycle4.png" width="587"/></p><h1>目錄結構</h1>
+<p>CMSimfly 的動態系統採用 Python3 + Flask 建構, 並且利用 Beatifulsoup 解讀位於 contig 目錄中的 content.htm 超文件檔案.</p>
+<p>content.htm 檔案可以透過動態系統中的 generate_pages 功能, 將超文件轉為位於 content 目錄中的個別頁面檔案.</p>
+<p>動態系統與靜態系統則共用 downloads, images, static 等目錄, 其中 downloads 目錄存放在動態系統上傳的文件檔, 而 images 目錄則存放動態系統所上傳的影像檔案, 包括 jpg, png 與 git 等格式圖檔.</p>
+<p>static 目錄則存放在動態與靜態系統所需要的 Javascript 或 Brython 程式檔.</p>
+<h1>頁面編輯</h1>
+<p>CMSimfly 動態系統的網際編輯器採用 <a href="https://www.tiny.cloud/">TinyMCE4</a>, 可以放入一般超文件,  納入圖檔, 嵌入影片連結, 並且加入帶有行數的原始碼.</p>
+<p>透過 File Upload 功能, 可以一次上傳多個檔案,  存入 downloads 目錄中儲存, 之後各頁面可以引入對應連結.</p>
+<p>而圖檔的上傳與引用與一般檔案類似, 但上傳後存入 images 目錄中.</p>
+<h2>插入程式碼</h2>
+<p>CMSimfly 目前使用 Syntaxhighlighter 3.0.83:</p>
+<p> <a href="http://alexgorbatchev.com/SyntaxHighlighter/">http://alexgorbatchev.com/SyntaxHighlighter/</a> </p>
+<p>進行頁面中的程式碼高亮顯示.</p><h3>Java 程式碼</h3>
+<pre class="brush:java;auto-links:false;toolbar:false" contenteditable="false">import java.util.Scanner;
+
+public class Life {
+    public static void show(boolean[][] grid){
+        String s = "";
+        for(boolean[] row : grid){
+            for(boolean val : row)
+                if(val)
+                    s += "*";
+                else
+                    s += ".";
+            s += "\n";
+        }
+        System.out.println(s);
+    }
+    
+    public static boolean[][] gen(){
+        boolean[][] grid = new boolean[10][10];
+        for(int r = 0; r &lt; 10; r++)
+            for(int c = 0; c &lt; 10; c++)
+                if( Math.random() &gt; 0.7 )
+                    grid[r][c] = true;
+        return grid;
+    }
+    
+    public static void main(String[] args){
+        boolean[][] world = gen();
+        show(world);
+        System.out.println();
+        world = nextGen(world);
+        show(world);
+        Scanner s = new Scanner(System.in);
+        while(s.nextLine().length() == 0){
+            System.out.println();
+            world = nextGen(world);
+            show(world);
+            
+        }
+    }
+    
+    public static boolean[][] nextGen(boolean[][] world){
+        boolean[][] newWorld 
+            = new boolean[world.length][world[0].length];
+        int num;
+        for(int r = 0; r &lt; world.length; r++){
+            for(int c = 0; c &lt; world[0].length; c++){
+                num = numNeighbors(world, r, c);
+                if( occupiedNext(num, world[r][c]) )
+                    newWorld[r][c] = true;
+            }
+        }
+        return newWorld;
+    }
+    
+    public static boolean occupiedNext(int numNeighbors, boolean occupied){
+        if( occupied &amp;&amp; (numNeighbors == 2 || numNeighbors == 3))
+            return true;
+        else if (!occupied &amp;&amp; numNeighbors == 3)
+            return true;
+        else
+            return false;
+    }
+
+    private static int numNeighbors(boolean[][] world, int row, int col) {
+        int num = world[row][col] ? -1 : 0;
+        for(int r = row - 1; r &lt;= row + 1; r++)
+            for(int c = col - 1; c &lt;= col + 1; c++)
+                if( inbounds(world, r, c) &amp;&amp; world[r][c] )
+                    num++;
+
+        return num;
+    }
+
+    private static boolean inbounds(boolean[][] world, int r, int c) {
+        return r &gt;= 0 &amp;&amp; r &lt; world.length &amp;&amp; c &gt;= 0 &amp;&amp;
+        c &lt; world[0].length;
+    }
+
+}</pre>
+<p></p><h3>Python 程式碼</h3>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def parse_content():
+    """use bs4 and re module functions to parse content.htm"""
+    #from pybean import Store, SQLiteWriter
+    # if no content.db, create database file with cms table
+    '''
+    if not os.path.isfile(config_dir+"content.db"):
+        library = Store(SQLiteWriter(config_dir+"content.db", frozen=False))
+        cms = library.new("cms")
+        cms.follow = 0
+        cms.title = "head 1"
+        cms.content = "content 1"
+        cms.memo = "first memo"
+        library.save(cms)
+        library.commit()
+    '''
+    # if no content.htm, generate a head 1 and content 1 file
+    if not os.path.isfile(config_dir+"content.htm"):
+        # create content.htm if there is no content.htm
+        File = open(config_dir + "content.htm", "w", encoding="utf-8")
+        File.write("&lt;h1&gt;head 1&lt;/h1&gt;content 1")
+        File.close()
+    subject = file_get_contents(config_dir+"content.htm")
+    # deal with content without content
+    if subject == "":
+        # create content.htm if there is no content.htm
+        File = open(config_dir + "content.htm", "w", encoding="utf-8")
+        File.write("&lt;h1&gt;head 1&lt;/h1&gt;content 1")
+        File.close()
+        subject = "&lt;h1&gt;head 1&lt;/h1&gt;content 1"
+    # initialize the return lists
+    head_list = []
+    level_list = []
+    page_list = []
+    # make the soup out of the html content
+    soup = bs4.BeautifulSoup(subject, 'html.parser')
+    # 嘗試解讀各種情況下的標題
+    soup = _remove_h123_attrs(soup)
+    # 改寫 content.htm 後重新取 subject
+    with open(config_dir + "content.htm", "wb") as f:
+        f.write(soup.encode("utf-8"))
+    subject = file_get_contents(config_dir+"content.htm")
+    # get all h1, h2, h3 tags into list
+    htag= soup.find_all(['h1', 'h2', 'h3'])
+    n = len(htag)
+    # get the page content to split subject using each h tag
+    temp_data = subject.split(str(htag[0]))
+    if len(temp_data) &gt; 2:
+        subject = str(htag[0]).join(temp_data[1:])
+    else:
+        subject = temp_data[1]
+    if n &gt;1:
+            # i from 1 to i-1
+            for i in range(1, len(htag)):
+                head_list.append(htag[i-1].text.strip())
+                # use name attribute of h* tag to get h1, h2 or h3
+                # the number of h1, h2 or h3 is the level of page menu
+                level_list.append(htag[i-1].name[1])
+                temp_data = subject.split(str(htag[i]))
+                if len(temp_data) &gt; 2:
+                    subject = str(htag[i]).join(temp_data[1:])
+                else:
+                    subject = temp_data[1]
+                # cut the other page content out of htag from 1 to i-1
+                cut = temp_data[0]
+                # add the page content
+                page_list.append(cut)
+    # last i
+    # add the last page title
+    head_list.append(htag[n-1].text.strip())
+    # add the last level
+    level_list.append(htag[n-1].name[1])
+    temp_data = subject.split(str(htag[n-1]))
+    # the last subject
+    subject = temp_data[0]
+    # cut the last page content out
+    cut = temp_data[0]
+    # the last page content
+    page_list.append(cut)
+    return head_list, level_list, page_list
+
+</pre>
+<p></p><h3>C或C++程式碼</h3>
+<p>請注意, 目前 CMSimfly 標題內文無法解讀 "/" 符號, 因此若本頁面的標題為  "C/C++程式碼", 則無法進行分頁.</p>
+<pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">/* Runge Kutta for a set of first order differential equations */
+ 
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+ 
+#define N 2 /* number of first order equations */
+#define dist 0.1 /* stepsize in t*/
+#define MAX 30.0 /* max for t */
+ 
+FILE *output; /* internal filename */
+FILE *output1; /* internal filename */
+// 利用 pipe 呼叫 gnuplot 繪圖
+FILE *pipe;
+ 
+void runge4(double x, double y[], double step); /* Runge-Kutta function */
+double f(double x, double y[], int i); /* function for derivatives */
+ 
+void main(){
+ 
+  double t, y[N];
+  int j;
+ 
+  output=fopen("osc.dat", "w"); /* external filename */
+  output1=fopen("osc1.dat", "w"); /* external filename */
+ 
+  y[0]=1.0; /* initial position */
+  y[1]=0.0; /* initial velocity */
+ 
+  //fprintf(output, "0\t%f\n", y[0]);
+ 
+  for (j=1; j*dist&lt;=MAX ;j++) /* time loop */{
+ 
+    t=j*dist;
+    runge4(t, y, dist);
+    fprintf(output, "%f\t%f\n", t, y[0]);
+    fprintf(output1, "%f\t%f\n", t, y[1]);
+  }
+ 
+  fclose(output);
+  fclose(output1);
+ 
+  pipe = popen("gnuplot -persist","w");
+  //fprintf(pipe,"set term png enhanced font \"v:/fireflysung.ttf\" 18 \n");
+  fprintf(pipe,"set term png enhanced font \"y:/wqy-microhei.ttc\" 18 \n");
+  //fprintf(pipe,"set yrange [68:70]\n");
+  fprintf(pipe,"set output \"test.png\"\n");
+  fprintf(pipe, "plot \"osc.dat\" title \"位移\" with lines, \"osc1.dat\" title \"速度\" with lines\n");
+  fprintf(pipe,"quit\n");
+
+  fprintf(pipe,"quit\n");
+  pclose(pipe);
+}
+ 
+void runge4(double x, double y[], double step){
+ 
+  double h=step/2.0, /* the midpoint */
+  t1[N], t2[N], t3[N], /* temporary storage arrays */
+  k1[N], k2[N], k3[N],k4[N]; /* for Runge-Kutta */
+  int i;
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    t1[i]=y[i]+0.5*(k1[i]=step*f(x,y,i));
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    t2[i]=y[i]+0.5*(k2[i]=step*f(x+h, t1, i));
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    t3[i]=y[i]+ (k3[i]=step*f(x+h, t2, i));
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    k4[i]= step*f(x+step, t3, i);
+  }
+ 
+  for (i=0;i&lt;N;i++){
+ 
+    y[i]+=(k1[i]+2*k2[i]+2*k3[i]+k4[i])/6.0;
+  }
+}
+ 
+double f(double x, double y[], int i){
+ 
+  if (i==0)
+    x=y[1]; /* derivative of first equation */
+  if (i==1)
+    x=-y[0]-0.5*y[1];
+  return x;
+}</pre>
+<p></p><h3>Lua 程式碼</h3>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">-- 導入 js 模組
+js = require("js")
+-- 取得 window
+window = js.global
+-- 猜小於或等於 n 的整數
+big = 100
+-- 計算猜測次數, 配合 while 至少會猜一次
+num = 1
+-- 利用 window:prompt 方法回應取得使用者所猜的整數
+guess = window:prompt("請猜一個介於 1 到 "..big.." 的整數")
+-- 利用數學模組的 random 函數以亂數產生答案
+answer = math.random(big)
+output = ""
+-- 若沒猜對, 一直猜到對為止
+while answer ~= tonumber(guess) do
+    if answer &gt; tonumber(guess) then
+        output = "猜第 "..num.." 次, guess="..guess..", answer="..answer.." - too small"
+        print(output)
+    else
+        output = "猜第 "..num.." 次, guess="..guess..", answer="..answer.." - too big"
+        print(output)
+    end 
+    guess = window:prompt(output..", 請猜一個介於 1 到 "..big.." 的整數")
+    num = num + 1
+end
+print("總共猜了 "..num.." 次, answer=guess="..answer.." - correct")
+    </pre>
+<p></p><h3>Javascript 程式碼</h3>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">STLViewer = function(stlpath, plotarea) {
+
+	var mycanvas = document.getElementById(plotarea);
+	var viewer = new JSC3D.Viewer(mycanvas)
+	var theScene = new JSC3D.Scene;
+	////Initialize with a default file:
+	//var stlpath = "../../../assets/2013-10-23/stl/box.STL"
+	//var stlpath = "../../../assets/2013-10-23/stl/taj.stl"
+	viewer.setParameter('SceneUrl', stlpath);
+    viewer.setParameter('InitRotationX', 20);
+	viewer.setParameter('InitRotationY', 20);
+	viewer.setParameter('InitRotationZ', 0);
+	viewer.setParameter('ModelColor', '#CAA618');
+	viewer.setParameter('BackgroundColor1', '#FFFFFF');
+	viewer.setParameter('BackgroundColor2', '#383840');
+	viewer.init();
+	viewer.update();
+	////init done
+	var canvas_drop = document.getElementById('canvas-drop')
+	/*var dropzone = document.getElementById('dropzone')
+	dropzone.addEventListener('dragover', handleDragOver, false);
+	dropzone.addEventListener('drop', handleFileSelect, false); */
+	canvas_drop.addEventListener('dragover', handleDragOver, false);
+	canvas_drop.addEventListener('drop', handleFileSelect, false);
+
+////Drag and drop logic:
+	function handleFileSelect(evt) {
+	    evt.stopPropagation();
+	    evt.preventDefault();
+	    var files = evt.dataTransfer.files;
+	    console.log(evt)
+	    console.log(files)
+	    preview_stl(files[0])
+	  }
+
+	  function handleDragOver(evt) {
+	    evt.stopPropagation();
+	    evt.preventDefault();
+	    evt.dataTransfer.dropEffect = 'copy';
+	  }
+
+////jsc3d logic
+	var handle_file_select = function(e) {
+		e.stopPropagation()
+		e.preventDefault()
+		var f = e.target.files[0]
+		preview_stl(f)
+	}
+
+	function preview_stl(f) {
+		var reader = new FileReader()
+		var ext = f.name.split(".")[1]
+
+		function setup_viewer() {
+			viewer.setParameter('InitRotationX', 20);
+			viewer.setParameter('InitRotationY', 20);
+			viewer.setParameter('InitRotationZ', 0);
+			viewer.setParameter('ModelColor', '#CAA618');
+			viewer.setParameter('BackgroundColor1', '#FFFFFF');
+			viewer.setParameter('BackgroundColor2', '#383840');
+			viewer.setParameter('RenderMode', "flat");
+		}
+		setup_viewer()
+
+		reader.onload = (function(file) {
+			return function(e) {
+				theScene = new JSC3D.Scene
+		    	stl_loader = new JSC3D.StlLoader()
+		    	stl_loader.parseStl(theScene, e.target.result)
+		      	//viewer.init()
+		      	viewer.replaceScene(theScene)
+		      	viewer.update()
+		      	console.log("file reader onload")
+			}
+		})(f)
+
+		if (ext.toLowerCase() != "stl") {
+			alert("That doesn't appear to be an STL file.");
+		} else {
+			reader.readAsBinaryString(f)
+		}
+	}
+}
+</pre>
+<p></p><h3>Html 原始碼</h3>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;html&gt;
+   &lt;head&gt;
+      &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
+      &lt;title&gt;CMSimfly&lt;/title&gt;
+      &lt;link rel="stylesheet" type="text/css" href="/static/cmsimply.css"&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+      &lt;div class='container'&gt;
+      &lt;nav&gt;
+         &lt;ul id='css3menu1' class='topmenu'&gt;
+            &lt;li&gt;&lt;a href='/get_page/簡介'&gt;簡介&lt;/a&gt;
+            &lt;li&gt;&lt;a href='/get_page/目錄結構'&gt;目錄結構&lt;/a&gt;
+            &lt;li&gt;
+               &lt;a href='/get_page/頁面編輯'&gt;頁面編輯&lt;/a&gt;
+               &lt;ul&gt;
+                  &lt;li&gt;
+                     &lt;a href='/get_page/插入程式碼'&gt;插入程式碼&lt;/a&gt;
+                     &lt;ul&gt;
+                        &lt;li&gt;&lt;a href='/get_page/Java 程式碼'&gt;Java 程式碼&lt;/a&gt;
+                        &lt;li&gt;&lt;a href='/get_page/Python 程式碼'&gt;Python 程式碼&lt;/a&gt;
+                        &lt;li&gt;&lt;a href='/get_page/C或C++程式碼'&gt;C或C++程式碼&lt;/a&gt;
+                        &lt;li&gt;&lt;a href='/get_page/Lua 程式碼'&gt;Lua 程式碼&lt;/a&gt;
+                        &lt;li&gt;&lt;a href='/get_page/Javascript 程式碼'&gt;Javascript 程式碼&lt;/a&gt;
+                        &lt;li&gt;&lt;a href='/get_page/Html 原始碼'&gt;Html 原始碼&lt;/a&gt;&lt;/li&gt;
+                        &lt;/li&gt;
+                     &lt;/ul&gt;
+               &lt;/ul&gt;
+            &lt;li&gt;&lt;a href='/get_page/網際簡報'&gt;網際簡報&lt;/a&gt;
+            &lt;li&gt;&lt;a href='/get_page/網誌編輯'&gt;網誌編輯&lt;/a&gt;
+            &lt;li&gt;&lt;a href='/get_page/已知錯誤'&gt;已知錯誤&lt;/a&gt;&lt;/li&gt;
+         &lt;/ul&gt;
+      &lt;/nav&gt;
+      &lt;section&gt;
+         &lt;form method='post' action='/ssavePage'&gt;
+         &lt;textarea class='simply-editor' name='page_content' cols='50' rows='15'&gt;&lt;h3&gt;Html 原始碼&lt;/h3&gt;&lt;/textarea&gt;
+         &lt;input type='hidden' name='page_order' value='9'&gt;
+         &lt;input type='submit' value='save'&gt;
+         &lt;input type=button onClick="location.href='/get_page/Html 原始碼'" value='viewpage'&gt;
+         &lt;/form&gt;
+      &lt;/section&gt;
+   &lt;/body&gt;
+&lt;/html&gt;
+COPY TO CLIPBOARD	</pre>
+<p></p><h1>網際簡報</h1>
+<p>CMSimfly 中採用 <a href="https://revealjs.com/#/">Reveal.js</a> 作為網際簡報, 其中的維護檔案位於 config/reveal.js, 而對應的簡報檔案則位於 reveal 目錄中.</p>
+<h1>網誌編輯</h1>
+<p>CMSimfly 彩用 <a href="https://blog.getpelican.com/">Pelican blog</a> 系統, 編輯檔案位於 config/pelican.leo, 對應的</p>
+<p> Markdown 原始檔案位於 markdown 目錄中, 而經 Pelican 轉換出的網誌超文件檔案則位於 blog 目錄中.</p>
+<p>其餘在網誌文章中所需要的 Javascript 或 Brython 程式檔案, 則與 CMSimfly 及 Reveal.js 共用, 位於 static 目錄下.</p>
+<p>上傳檔案與圖檔的引用則與 CMSimfly 架構相同.</p>
+<h1>已知錯誤</h1>
+<h4>全部頁面會因無法正確解讀而誤刪</h4>
+<p>在特定情況下, 系統會誤刪 config/content.htm 檔案, 目前在單頁或全部頁面編輯存檔之前, 或將上一版本的 content.htm 存入 content_back.htm, 若 content.htm 內容被程式誤刪, 可以利用備份檔案複製回原始內容後, 再進行後續處理.</p>
+<h4>頁面標題不支援特殊符號</h4>
+<p>各頁面標題目前不支援特殊符號, 例如: "/", "?" 等, 若已經發生程式無法解讀頁面的情況, 只能從編輯 config/content.htm 下手, 若系統位於遠端, 則後續必須要再設法提供一個額外的編輯 config/content.htm 檔案的網際連結功能.</p>
+<h4>Video 引用不支援內部引用</h4>
+<p>tinymce 中插入 video 的小視窗, 要移除引用的圖像與連結, 因為一般建議不要在內容中存入 .mp4 的影片資料, 而只接受引入影片 URL 連結.</p>

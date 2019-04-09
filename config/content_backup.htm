@@ -1,18 +1,82 @@
 <h1>簡介</h1>
+<p>首先是這個衝突 (這是新版本內容)</p>
+<p>終於要來處理衝突了 (這是產生衝突的舊版本內容)</p>
 <p>CMSimfly (<a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly)</a> 是一套簡單的網際內容管理系統, 採用 Flask 網際框架, 以 Beautifulsoup 解讀分頁內容.</p>
-<p><img alt="" height="471" src="/images/gocycle4.png" width="587"/></p><h1>目錄結構</h1>
+<p><img alt="" height="471" src="/images/gocycle4.png" width="587"/></p>
+<h2>week1</h2>
+<p>學習如何一次上傳多個圖檔, 並且學會如何引用, 並且設定圖片大小.</p>
+<p><img alt="" height="471" src="/images/gocycle4.png" width="587"/></p>
+<p> </p>
+<p></p>
+<p><button onclick="throwdice();">Throw dice </button></p>
+<form id="f" name="f">
+<p>Stage: <input name="stage" type="text" value="First Throw"/> Point: <input name="pv" type="text" value="   "/>Outcome:</p>
+<p><input name="outcome" type="text" value="     "/></p>
+</form>
+<h2>week2</h2>
+<p><br/>網路與電腦程式只是工具, 任何人希望與遠端的系統或成員溝通, 可以使用網路.</p>
+<p>任何人想要利用電腦的能力解決問題, 就必須學會編寫電腦程式, 與電腦溝通.</p>
+<p></p>
+<p></p>
+<p>根據 <a href="https://2019wcm.blogspot.com/2019/03/ungit.html">https://2019wcm.blogspot.com/2019/03/ungit.html</a> 的設定, 完成 ungit 配置.</p>
+<p></p>
+<p><button onclick="myFunction()">按一下</button></p>
+<p id="demo"></p>
+<script>// <![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*50 + 1);
+  //document.getElementById("demo").innerHTML = "不要亂按";
+ //alert("不要亂按")
+}
+// ]]></script>
+<h1>week3</h1>
+<h1>git http 與 ssh</h1>
+<p>利用 ssh 對 git 改版, 必須使用  home/.ssh/config 設定, 才能透過 proxy 伺服器進行連線, 由於在 IPv6 環境下, 必須要透過 proxy 才能對 Git 連線, 因此若無 config, 無法對遠端改版</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">ProxyCommand y:/PortableGit/mingw64/bin/connect.exe -H 140.130.17.53:3128 %h %p
+
+Host github.com
+User git
+Port 22
+Hostname github.com
+
+IdentityFile "y:\home\.ssh\id_rsa"
+
+TCPKeepAlive yes
+IdentitiesOnly yes
+
+Host ssh.github.com
+User git
+Port 443
+Hostname ssh.github.com
+
+IdentityFile "y:\home\.ssh\id_rsa"
+
+TCPKeepAlive yes
+IdentitiesOnly yes</pre>
+<p></p>
+<h1>目錄結構</h1>
+<p>第二位想要編輯這裡</p>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/9A-hg32eD-s" width="560"></iframe></p>
 <p>CMSimfly 的動態系統採用 Python3 + Flask 建構, 並且利用 Beatifulsoup 解讀位於 contig 目錄中的 content.htm 超文件檔案.</p>
 <p>content.htm 檔案可以透過動態系統中的 generate_pages 功能, 將超文件轉為位於 content 目錄中的個別頁面檔案.</p>
-<p>動態系統與靜態系統則共用 downloads, images, static 等目錄, 其中 downloads 目錄存放在動態系統上傳的文件檔, 而 images 目錄則存放動態系統所上傳的影像檔案, 包括 jpg, png 與 git 等格式圖檔.</p>
+<p>動態系統與靜態系統則共用 downloads, images, static 等目錄, 其中 downloads 目錄存放在動態系統上傳的文件檔, 而 images 目錄則存放動態系統所上傳的影像檔案, 包括 jpg, png 與 gif 等格式圖檔.</p>
 <p>static 目錄則存放在動態與靜態系統所需要的 Javascript 或 Brython 程式檔.</p>
+<p>還有這裡</p>
+<p>首先修改這裡</p>
+<p></p>
 <h1>頁面編輯</h1>
-<p>CMSimfly 動態系統的網際編輯器採用 <a href="https://www.tiny.cloud/">TinyMCE4</a>, 可以放入一般超文件,  納入圖檔, 嵌入影片連結, 並且加入帶有行數的原始碼.</p>
+<p>CMSimfly (<a href="https://github.com/chiamingyen/cmsimfly">https://github.com/chiamingyen/cmsimfly)</a> 是一套簡單的網際內容管理系統, 採用 Flask 網際框架, 以 Beautifulsoup 解讀分頁內容.</p>
+<p>CMSimfly 動態系統的網際編輯器採用<span> </span><a href="https://www.tiny.cloud/">TinyMCE4</a>, 可以放入一般超文件,  納入圖檔, 嵌入影片連結, 並且加入帶有行數的原始碼.</p>
 <p>透過 File Upload 功能, 可以一次上傳多個檔案,  存入 downloads 目錄中儲存, 之後各頁面可以引入對應連結.</p>
 <p>而圖檔的上傳與引用與一般檔案類似, 但上傳後存入 images 目錄中.</p>
+<p><img alt="" height="471" src="/images/gocycle4.png" width="587"/></p>
 <h2>插入程式碼</h2>
 <p>CMSimfly 目前使用 Syntaxhighlighter 3.0.83:</p>
 <p> <a href="http://alexgorbatchev.com/SyntaxHighlighter/">http://alexgorbatchev.com/SyntaxHighlighter/</a> </p>
-<p>進行頁面中的程式碼高亮顯示.</p><h3>Java 程式碼</h3>
+<p></p>
+<p>進行頁面中的程式碼高亮顯示.</p>
+<h3>Java 程式碼</h3>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; ef42a38c350ac715038223737bfbd8a63209f36e</p>
 <pre class="brush:java;auto-links:false;toolbar:false" contenteditable="false">import java.util.Scanner;
 
 public class Life {
@@ -92,7 +156,10 @@ public class Life {
     }
 
 }</pre>
-<p></p><h3>Python 程式碼</h3>
+<p></p>
+<p></p>
+<h3>Python 程式碼</h3>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; ef42a38c350ac715038223737bfbd8a63209f36e</p>
 <pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">def parse_content():
     """use bs4 and re module functions to parse content.htm"""
     #from pybean import Store, SQLiteWriter
@@ -174,7 +241,9 @@ public class Life {
     return head_list, level_list, page_list
 
 </pre>
-<p></p><h3>C或C++程式碼</h3>
+<p></p>
+<h3>C或C++程式碼</h3>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; ef42a38c350ac715038223737bfbd8a63209f36e</p>
 <p>請注意, 目前 CMSimfly 標題內文無法解讀 "/" 符號, 因此若本頁面的標題為  "C/C++程式碼", 則無法進行分頁.</p>
 <pre class="brush:cpp;auto-links:false;toolbar:false" contenteditable="false">/* Runge Kutta for a set of first order differential equations */
  
@@ -270,7 +339,9 @@ double f(double x, double y[], int i){
     x=-y[0]-0.5*y[1];
   return x;
 }</pre>
-<p></p><h3>Lua 程式碼</h3>
+<p></p>
+<h3>Lua 程式碼</h3>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; ef42a38c350ac715038223737bfbd8a63209f36e</p>
 <pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">-- 導入 js 模組
 js = require("js")
 -- 取得 window
@@ -298,7 +369,9 @@ while answer ~= tonumber(guess) do
 end
 print("總共猜了 "..num.." 次, answer=guess="..answer.." - correct")
     </pre>
-<p></p><h3>Javascript 程式碼</h3>
+<p></p>
+<h3>Javascript 程式碼</h3>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; ef42a38c350ac715038223737bfbd8a63209f36e</p>
 <pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">STLViewer = function(stlpath, plotarea) {
 
 	var mycanvas = document.getElementById(plotarea);
@@ -383,7 +456,10 @@ print("總共猜了 "..num.." 次, answer=guess="..answer.." - correct")
 	}
 }
 </pre>
-<p></p><h3>Html 原始碼</h3>
+<p></p>
+<p></p>
+<h3>Html 原始碼</h3>
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; ef42a38c350ac715038223737bfbd8a63209f36e</p>
 <pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;html&gt;
    &lt;head&gt;
       &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
@@ -427,13 +503,21 @@ print("總共猜了 "..num.." 次, answer=guess="..answer.." - correct")
    &lt;/body&gt;
 &lt;/html&gt;
 COPY TO CLIPBOARD	</pre>
-<p></p><h1>網際簡報</h1>
+<p></p>
+<h1>網際簡報</h1>
 <p>CMSimfly 中採用 <a href="https://revealjs.com/#/">Reveal.js</a> 作為網際簡報, 其中的維護檔案位於 config/reveal.js, 而對應的簡報檔案則位於 reveal 目錄中.</p>
 <h1>網誌編輯</h1>
-<p>CMSimfly 彩用 <a href="https://blog.getpelican.com/">Pelican blog</a> 系統, 編輯檔案位於 config/pelican.leo, 對應的</p>
+<p>CMSimfly 採用 <a href="https://blog.getpelican.com/">Pelican blog</a> 系統, 編輯檔案位於 config/pelican.leo, 對應的</p>
 <p> Markdown 原始檔案位於 markdown 目錄中, 而經 Pelican 轉換出的網誌超文件檔案則位於 blog 目錄中.</p>
 <p>其餘在網誌文章中所需要的 Javascript 或 Brython 程式檔案, 則與 CMSimfly 及 Reveal.js 共用, 位於 static 目錄下.</p>
 <p>上傳檔案與圖檔的引用則與 CMSimfly 架構相同.</p>
+<p>第二位搶這裡也是不遺餘力</p>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/KZnCu1Sq1vo" width="560"></iframe></p>
+<p>就是這樣編輯的</p>
+<p>接下來修改這裡</p>
+<p></p>
+<p></p>
+<p></p>
 <h1>已知錯誤</h1>
 <h4>全部頁面會因無法正確解讀而誤刪</h4>
 <p>在特定情況下, 系統會誤刪 config/content.htm 檔案, 目前在單頁或全部頁面編輯存檔之前, 或將上一版本的 content.htm 存入 content_back.htm, 若 content.htm 內容被程式誤刪, 可以利用備份檔案複製回原始內容後, 再進行後續處理.</p>

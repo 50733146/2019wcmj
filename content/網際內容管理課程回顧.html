@@ -1,0 +1,83 @@
+<!doctype html>
+<html><head>
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<title>CMSimfly</title> <link rel="stylesheet" type="text/css" href="./../static/cmsimply.css">
+<script src="tipuesearch_content.js"></script>
+<script src="./../static/jquery.js"></script>
+<link rel="stylesheet" href="./../static/tipuesearch/css/tipuesearch.css">
+<script src="./../static/tipuesearch/tipuesearch_set.js"></script>
+<script src="./../static/tipuesearch/tipuesearch.min.js"></script>
+
+<script type="text/javascript" src="./../static/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../static/syntaxhighlighter/shBrushCSharp.js"></script>
+<link type="text/css" rel="stylesheet" href="./../static/syntaxhighlighter/css/shCoreDefault.css"/>
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+
+<!-- for LaTeX equations 暫時不用
+<script src="https://scrum-3.github.io/web/math/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+-->
+<!-- 暫時不用
+<script src="./../static/fengari-web.js"></script>
+<script type="text/javascript" src="./../static/Cango-13v08-min.js"></script>
+<script type="text/javascript" src="./../static/CangoAxes-4v01-min.js"></script>
+<script type="text/javascript" src="./../static/gearUtils-05.js"></script>
+-->
+<!-- for Brython 暫時不用
+<script src="https://scrum-3.github.io/web/brython/brython.js"></script>
+<script src="https://scrum-3.github.io/web/brython/brython_stdlib.js"></script>
+-->
+
+<script type="text/javascript">
+/*shorthand of $(document).ready(function(){};); */
+$(function(){
+    $("ul.topmenu> li:has(ul) > a").append('<div class="arrow-right"></div>');
+    $("ul.topmenu > li ul li:has(ul) > a").append('<div class="arrow-right"></div>');
+});
+function doSearch() {
+     $('#tipue_search_input').tipuesearch({
+        newWindow: true, minimumLength: 2
+     });
+}
+$(document).ready(doSearch);
+</script>
+
+</head><header><h1>50733146 - 動靜皆宜的簡潔網際內容管理</h1> <confmenu>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="sitemap.html">Site Map</a></li>
+<li><a href="./../reveal/index.html">reveal</a></li>
+<li><a href="./../blog/index.html">blog</a></li>
+
+</ul>
+</confmenu></header>
+<div class='container'><nav><ul id='css3menu1' class='topmenu'><div class="tipue_search_group"><input style="width: 6vw;" type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="Press enter key to search" required></div><li><a href='★虎尾科技大學★.html'>★虎尾科技大學★</a><li><a href='糞Game(一).html'>糞Game(一)</a><li><a href='糞Game(二).html'>糞Game(二)</a><li><a href='救救台灣.html'>救救台灣</a><li><a href='~~.html'>~~</a><li><a href='期中影片.html'>期中影片</a><li><a href='week_4.html'>week_4</a><ul><li><a href='建立 Windows 10 64 位元可攜程式套件.html'>建立 Windows 10 64 位元可攜程式套件</a><li><a href='建立 Github 倉儲-1.html'>建立 Github 倉儲-1</a><li><a href='啟用倉儲的 Github Pages 與 CMSimfly.html'>啟用倉儲的 Github Pages 與 CMSimfly</a><li><a href='使用 SSH 執行 Git clone 與 push.html'>使用 SSH 執行 Git clone 與 push</a><li><a href='建立 OpenSSH 格式的 Private 與 Public Keys.html'>建立 OpenSSH 格式的 Private 與 Public Keys</a></li></ul><li><a href='week_5.html'>week_5</a><ul><li><a href='導入 Ungit.html'>導入 Ungit</a><li><a href='自製可攜系統.html'>自製可攜系統</a><li><a href='建立 Github 倉儲-2.html'>建立 Github 倉儲-2</a><li><a href='以 ssh 連線對 Github 倉儲改版.html'>以 ssh 連線對 Github 倉儲改版</a><li><a href='加入設定, 讓 ssh 連線透過 Proxy Server 擷取資料.html'>加入設定, 讓 ssh 連線透過 Proxy Server 擷取資料</a><li><a href='IPv6 環境設定與 Git 操作設定.html'>IPv6 環境設定與 Git 操作設定</a></li></ul><li><a href='week_8.html'>week_8</a><ul><li><a href='電腦初學者的網際內容管理.html'>電腦初學者的網際內容管理</a></li></ul><li><a href='week_10.html'>week_10</a><ul><li><a href='Virtualbox 虛擬主機的網路設定.html'>Virtualbox 虛擬主機的網路設定</a></li></ul><li><a href='week_12.html'>week_12</a><ul><li><a href='網管課程任務.html'>網管課程任務</a><li><a href='網際內容管理課程回顧.html'>網際內容管理課程回顧</a></li></ul><li><a href='期末影片.html'>期末影片</a></li></ul></nav><section><div id="tipue_search_content">網管課程任務 << <a href='網管課程任務.html'>Previous</a> <a href='期末影片.html'>Next</a> >> 期末影片<br /><h1>網際內容管理課程回顧</h1>
+<p><span style="background-color: #ffff99; color: #000000;">2019 Spring 網際內容管理課程</span><br/><br/><strong><span style="color: #0000ff;">五專部</span></strong><br/><br/><strong><span style="color: #ff0000;">1. 是否已經在自己的隨身碟建立隨身程式系統?</span></strong><br/><br/><span>此一隨身系統以</span><a href="https://drive.google.com/open?id=1_TQBw1PM7jxrmtsBjvLKbjJWfGs8Ug79"><span> </span>2019_cdb_w5.7z</a><span><span> </span>為基礎, 使用者必須會自行查驗</span><br/><br/><span>    是否已經將 portablegit 中的 helper = manager 的設定移除?</span><br/><span>     python 是否已經安裝 flask, bs4 與 lxml 模組?</span><br/><span>    (1)是否了解 git 以 https 連線時, proxy 將採用那一個檔案中的設定?</span><br/><span>    (2)是否已經學會如何採用 ssh 模式維護 github 上的倉儲?</span><br/><span>    (3)是否了解 CMSimfly 動態與靜態系統之間的關係?</span><br/><span>    (4)是否會在 CMSimfly 中上傳檔案, 引用檔案?</span><br/><span>    (5)是否會在 CMsimfly 中上傳圖檔, 引用圖檔?</span><br/><span>    (6)是否會在 CMSimfly 中嵌入 Youtube 影片?</span><br/><span>    (7)是否會在 CMSimfly 頁面中加入 Javascript 互動程式?</span><br/><span>    (8)是否會更改 CMsimfly 靜態系統所使用的模板?</span><br/><span>    (9)是否能將 USB 隨身碟格式為 NTFS 或 extFAT, 以便放入 Ubuntu 虛擬主機檔案?</span><br/><span>    (10)是否會使用自己隨身碟中的 Virtualbox 與 Ubuntu 中的 Fossil SCM 來伺服靜態 CMSimfly 檔案?</span><br/><span>    (11)是否會使用自己隨身碟中的 Virtualbox 與 Ubuntu 中的 uwsgi 來伺服動態 CMSimfly 系統?</span><br/><br/><strong><span style="color: #ff0000;">2. 是否已經根據各上述階段任務的操作拍成說明影片, 嵌入自己的 Github Pages 網站?</span></strong><br/><br/><strong><span style="color: #ff0000;">3. 是否已經著手執行各學員的期末專案, 是否了解各學員的期末報告, 必須同時呈現 html 與 pdf 版本.</span></strong><br/><br/><span>各學員繳交供評分之內容: 個人倉儲 Github Pages 網站及 pdf 格式之期末報告.</span></p>
+<br />網管課程任務 << <a href='網管課程任務.html'>Previous</a> <a href='期末影片.html'>Next</a> >> 期末影片</div></section></div></body></html>

@@ -1,7 +1,8 @@
 <h1>★虎尾科技大學★</h1>
 <p>★幫學校打一下廣告★                    虎尾科技大學 五專部</p>
 <p><img alt="" height="472" src="/images/1525766916_2080.jpg" width="509"/><img alt="" height="407" src="/images/download.jpg" width="518"/></p>
-<h1>糞Game(一)</h1>
+<h1>Game</h1>
+<h2>糞Game(一)</h2>
 <p></p>
 <script type="text/javascript">// <![CDATA[
 var cwidth = 400;
@@ -156,10 +157,11 @@ function draw2mid() {
 // ]]></script>
 <p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas> <br/> <button onclick="throwdice();">Throw dice </button></p>
 <form id="f" name="f">Stage: <input name="stage" type="text" value="First Throw"/> Point: <input name="pv" type="text" value="   "/> Outcome: <input name="outcome" type="text" value="     "/></form>
-<h1>糞Game(二)</h1>
+<h2>糞Game(二)</h2>
 <p></p>
 <p><button onclick="myFunction()">核彈按鈕</button></p>
 <p id="demo"></p>
+<p></p>
 <script>// <![CDATA[
 function myFunction() {
   document.getElementById("demo").innerHTML = Math.floor(Math.random()*50 + 1);
@@ -167,8 +169,9 @@ function myFunction() {
  //alert("不要亂按")
 }
 // ]]></script>
-<h1>糞Game(三)</h1>
+<h2>糞Game(三)</h2>
 <p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
+<p></p>
 <script>// <![CDATA[
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext('2d');
@@ -197,6 +200,177 @@ ctx.restore();
 }
 // ]]></script>
 <p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p>
+<h2>糞Game(四)</h2>
+<p>
+<script src="/static/konva.min.js"></script>
+</p>
+<div id="container"></div>
+<p>
+<script>// <![CDATA[
+      var width = 800;
+      var height = 600;
+ 
+      // globals
+      var curveLayer, lineLayer, anchorLayer, quad, bezier;
+ 
+      function updateDottedLines() {
+        var q = quad;
+        var b = bezier;
+ 
+        var quadLine = lineLayer.findOne('#quadLine');
+        var bezierLine = lineLayer.findOne('#bezierLine');
+ 
+        quadLine.points([
+          q.start.attrs.x,
+          q.start.attrs.y,
+          q.control.attrs.x,
+          q.control.attrs.y,
+          q.end.attrs.x,
+          q.end.attrs.y
+        ]);
+ 
+        bezierLine.points([
+          b.start.attrs.x,
+          b.start.attrs.y,
+          b.control1.attrs.x,
+          b.control1.attrs.y,
+          b.control2.attrs.x,
+          b.control2.attrs.y,
+          b.end.attrs.x,
+          b.end.attrs.y
+        ]);
+        lineLayer.draw();
+      }
+      function buildAnchor(x, y) {
+        var anchor = new Konva.Circle({
+          x: x,
+          y: y,
+          radius: 20,
+          stroke: '#666',
+          fill: '#ddd',
+          strokeWidth: 2,
+          draggable: true
+        });
+ 
+        // add hover styling
+        anchor.on('mouseover', function() {
+          document.body.style.cursor = 'pointer';
+          this.strokeWidth(4);
+          anchorLayer.draw();
+        });
+        anchor.on('mouseout', function() {
+          document.body.style.cursor = 'default';
+          this.strokeWidth(2);
+          anchorLayer.draw();
+        });
+ 
+        anchor.on('dragend', function() {
+          drawCurves();
+          updateDottedLines();
+        });
+ 
+        anchorLayer.add(anchor);
+        return anchor;
+      }
+      function drawCurves() {
+        var context = curveLayer.getContext();
+ 
+        context.clear();
+ 
+        // draw quad
+        context.beginPath();
+        context.moveTo(quad.start.attrs.x, quad.start.attrs.y);
+        context.quadraticCurveTo(
+          quad.control.attrs.x,
+          quad.control.attrs.y,
+          quad.end.attrs.x,
+          quad.end.attrs.y
+        );
+        context.setAttr('strokeStyle', 'red');
+        context.setAttr('lineWidth', 4);
+        context.stroke();
+ 
+        // draw bezier
+        context.beginPath();
+        context.moveTo(bezier.start.attrs.x, bezier.start.attrs.y);
+        context.bezierCurveTo(
+          bezier.control1.attrs.x,
+          bezier.control1.attrs.y,
+          bezier.control2.attrs.x,
+          bezier.control2.attrs.y,
+          bezier.end.attrs.x,
+          bezier.end.attrs.y
+        );
+        context.setAttr('strokeStyle', 'blue');
+        context.setAttr('lineWidth', 4);
+        context.stroke();
+      }
+ 
+      var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height
+      });
+ 
+      anchorLayer = new Konva.Layer();
+      lineLayer = new Konva.Layer();
+ 
+      // curveLayer just contains a canvas which is drawn
+      // onto with the existing canvas API
+      curveLayer = new Konva.Layer();
+ 
+      var quadLine = new Konva.Line({
+        dash: [10, 10, 0, 10],
+        strokeWidth: 3,
+        stroke: 'black',
+        lineCap: 'round',
+        id: 'quadLine',
+        opacity: 0.3,
+        points: [0, 0]
+      });
+ 
+      var bezierLine = new Konva.Line({
+        dash: [10, 10, 0, 10],
+        strokeWidth: 3,
+        stroke: 'black',
+        lineCap: 'round',
+        id: 'bezierLine',
+        opacity: 0.3,
+        points: [0, 0]
+      });
+ 
+      // add dotted line connectors
+      lineLayer.add(quadLine);
+      lineLayer.add(bezierLine);
+ 
+      quad = {
+        start: buildAnchor(60, 30),
+        control: buildAnchor(240, 110),
+        end: buildAnchor(80, 160)
+      };
+ 
+      bezier = {
+        start: buildAnchor(280, 20),
+        control1: buildAnchor(530, 40),
+        control2: buildAnchor(480, 150),
+        end: buildAnchor(300, 150)
+      };
+ 
+      // keep curves insync with the lines
+      anchorLayer.on('beforeDraw', function() {
+        drawCurves();
+        updateDottedLines();
+      });
+ 
+      stage.add(curveLayer);
+      stage.add(lineLayer);
+      stage.add(anchorLayer);
+ 
+      drawCurves();
+      updateDottedLines();
+     
+// ]]></script>
+</p>
 <h1>期中影片</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="644" src="https://www.youtube.com/embed/SH0WxVi9Agk" width="1189"></iframe></p>
 <h1>week_4</h1>
@@ -311,3 +485,5 @@ Host github.com_user2
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="534" src="https://www.youtube.com/embed/Mx7C9OqNPRU" width="949"></iframe></p>
 <h2>用高品質的「台灣製造」取代「中國製造」</h2>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="534" src="https://www.youtube.com/embed/r1VHIoWSM-M" width="949"></iframe></p>
+<h2>等敵軍走進陣地再來談</h2>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="534" src="https://www.youtube.com/embed/o4WdskqBjNg" width="949"></iframe></p>

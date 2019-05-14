@@ -167,12 +167,36 @@ function myFunction() {
  //alert("不要亂按")
 }
 // ]]></script>
-<h1>救救台灣</h1>
-<p>★跟著館長一起深蹲★</p>
-<p><img alt="" height="326" src="/images/maxresdefault.jpg" width="579"/></p>
-<h1>~~</h1>
-<p></p>
-<p><img alt="" height="232" src="/images/960420_ibm.jpg" width="526"/></p>
+<h1>糞Game(三)</h1>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
+<script>// <![CDATA[
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
+ 
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.closePath();
+ ctx.stroke();
+}
+ 
+function clear_canvas(){
+// Store the current transformation matrix
+// The save() method pushes the current state onto the stack..
+ctx.save();
+ 
+// Use the identity matrix while clearing the canvas
+// the setTransform() method lets you scale, rotate, move, and skew the current context.
+// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+// The restore() method pops the top state on the stack, restoring the context to that state.
+ctx.restore();
+}
+// ]]></script>
+<p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p>
 <h1>期中影片</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="644" src="https://www.youtube.com/embed/SH0WxVi9Agk" width="1189"></iframe></p>
 <h1>week_4</h1>
@@ -278,3 +302,12 @@ Host github.com_user2
 <h2>網際內容管理課程回顧</h2>
 <p><span style="background-color: #ffff99; color: #000000;">2019 Spring 網際內容管理課程</span><br/><br/><strong><span style="color: #0000ff;">五專部</span></strong><br/><br/><strong><span style="color: #ff0000;">1. 是否已經在自己的隨身碟建立隨身程式系統?</span></strong><br/><br/><span>此一隨身系統以</span><a href="https://drive.google.com/open?id=1_TQBw1PM7jxrmtsBjvLKbjJWfGs8Ug79"><span> </span>2019_cdb_w5.7z</a><span><span> </span>為基礎, 使用者必須會自行查驗</span><br/><br/><span>    是否已經將 portablegit 中的 helper = manager 的設定移除?</span><br/><span>     python 是否已經安裝 flask, bs4 與 lxml 模組?</span><br/><span>    (1)是否了解 git 以 https 連線時, proxy 將採用那一個檔案中的設定?</span><br/><span>    (2)是否已經學會如何採用 ssh 模式維護 github 上的倉儲?</span><br/><span>    (3)是否了解 CMSimfly 動態與靜態系統之間的關係?</span><br/><span>    (4)是否會在 CMSimfly 中上傳檔案, 引用檔案?</span><br/><span>    (5)是否會在 CMsimfly 中上傳圖檔, 引用圖檔?</span><br/><span>    (6)是否會在 CMSimfly 中嵌入 Youtube 影片?</span><br/><span>    (7)是否會在 CMSimfly 頁面中加入 Javascript 互動程式?</span><br/><span>    (8)是否會更改 CMsimfly 靜態系統所使用的模板?</span><br/><span>    (9)是否能將 USB 隨身碟格式為 NTFS 或 extFAT, 以便放入 Ubuntu 虛擬主機檔案?</span><br/><span>    (10)是否會使用自己隨身碟中的 Virtualbox 與 Ubuntu 中的 Fossil SCM 來伺服靜態 CMSimfly 檔案?</span><br/><span>    (11)是否會使用自己隨身碟中的 Virtualbox 與 Ubuntu 中的 uwsgi 來伺服動態 CMSimfly 系統?</span><br/><br/><strong><span style="color: #ff0000;">2. 是否已經根據各上述階段任務的操作拍成說明影片, 嵌入自己的 Github Pages 網站?</span></strong><br/><br/><strong><span style="color: #ff0000;">3. 是否已經著手執行各學員的期末專案, 是否了解各學員的期末報告, 必須同時呈現 html 與 pdf 版本.</span></strong><br/><br/><span>各學員繳交供評分之內容: 個人倉儲 Github Pages 網站及 pdf 格式之期末報告.</span></p>
 <h1>期末影片</h1>
+<h1>救救台灣</h1>
+<p>★跟著館長一起深蹲★</p>
+<p><img alt="" height="326" src="/images/maxresdefault.jpg" width="579"/></p>
+<h2>協議不能重談</h2>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="534" src="https://www.youtube.com/embed/2HxvN1Do0ZA" width="949"></iframe></p>
+<h2>不只媽祖託夢　郭台銘真正決定選總統的那一刻</h2>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="534" src="https://www.youtube.com/embed/Mx7C9OqNPRU" width="949"></iframe></p>
+<h2>用高品質的「台灣製造」取代「中國製造」</h2>
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="534" src="https://www.youtube.com/embed/r1VHIoWSM-M" width="949"></iframe></p>

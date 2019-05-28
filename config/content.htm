@@ -323,7 +323,7 @@ ctx.restore();
 <h1>配置可攜程式環境</h1>
 <p><span>取得 Windows 10 64 位元環境下的可攜程式環境 (下載  2019_cdb_w5.7z), 下載後解開目錄, 放入 USB3.0 規格以上的隨身碟或隨身硬碟.</span><br/><br/><span>以滑鼠點擊 start.bat 開啟可攜隨身系統, 以 stop.bat 關閉可攜隨身系統,<span> </span><strong>隨身碟必須在關閉所有應用程式執行下, 才可正常退出.</strong></span><br/><br/><span>了解基本的 DOS (Disk Operating System) 指令</span><br/><br/><span>C:\&gt; 符號為 DOS 命令列視窗的回應 , 表示目前在 C 槽硬碟的 \ 根目錄, 若要切換到 Y 槽, 則在電腦的回應後, 輸入 Y:, 命令列將轉為</span><span>Y:\&gt;</span><br/><br/><span>若要<strong>更換目錄</strong>, 則使用<strong><span> </span>cd</strong>,例如:<strong> </strong></span><strong>Y:\&gt;cd tmp</strong><br/><br/><span>表示要從 Y 槽的根目錄更換到 tmp 目錄, 也就是 </span><span>Y:\tmp&gt;</span><br/><br/><span>若要再回到 Y 槽的根目錄, 可以使用 cd ..</span><br/><br/><span>表示要從目前所在目錄, 往上跳回一個目錄, 也就是重新回到 Y 槽的根目錄.</span><br/><br/><span>另外, 無論目前位於哪一個子目錄, 也可以使用 cd \</span><br/><br/><span>直接回到根目錄.</span><br/><br/><span>或者從<strong><span> </span>Y:\&gt; 直接使用</strong></span><br/><br/><strong>cd \tmp\repo\ssh\wcm2019</strong><br/><br/><span>直接從 Y 槽的根目錄, 跳進 Y:\tmp\repo\ssh\wcm2019&gt;</span><br/><br/><span>此外, 常用的 DOS 指令有:</span><br/><br/><span><strong>dir</strong><span> </span>- 列出目前所在目錄的內容</span><br/><br/><span><strong>mkdir</strong> - 隨後加上要建立目錄的名稱, 可以建立目錄</span></p>
 <p><span><strong>cls</strong> -清除目前的命令列顯示的內容</span></p>
-<h1>校園授權軟體下載</h1>
+<h1>SSL-VPN服務</h1>
 <p><span><strong>1. 首次使用須先安裝SSL VPN 程式(Juniper Networks Connect)</strong></span></p>
 <p><span>(1)請依您的作業系統版本下載使用者端程式：<a href="https://drive.narlabs.org.tw/navigate/s/8F663EC143514CF295FCB53B5B228956GUY">連結</a></span></p>
 <p><span>(2)程式下載完成後，點擊兩下開始安裝。</span><br/><span>   <img alt=" archive 3629 d5014af5" src="https://nfucc.nfu.edu.tw/images/image/-archive-3629_d5014af5.png"/></span></p>
@@ -382,8 +382,21 @@ ctx.restore();
 <blockquote>
 <div><span>如何得知連線的 IP 究竟是什麼呢？您可透過網際網路上提供 IP 位址偵測服務的網站進行確認，例如 <a href="http://showip.net/" target="_blank" title="Show IP"><span>http://showip.net/</span></a></span></div>
 <div><span><img alt="15313.png" src="https://nfucc.nfu.edu.tw/images/15313.png"/></span></div>
-<div></div>
-</blockquote><h1>期中影片</h1>
+</blockquote><h1>VirtualBox</h1>
+<p>1.建立 Ubuntu 18.04 虛擬主機</p>
+<p><img alt="" height="326" src="https://50733115.github.io/2019wcmj/images/VirtualBox_iekaHmEdBS.png" width="400"/></p>
+<p><img alt="" height="326" src="https://50733115.github.io/2019wcmj/images/VirtualBox_Kq2i03YdGi.png" width="400"/></p>
+<p><img alt="" height="456" src="https://50733115.github.io/2019wcmj/images/VirtualBox_fmC2DnkgCK.png" width="400"/></p>
+<p><img alt="" height="448" src="https://50733115.github.io/2019wcmj/images/VirtualBox_1yP2u8YKew.png" width="439"/></p>
+<p><img alt="" height="390" src="https://50733115.github.io/2019wcmj/images/VirtualBox_SqVuiZZj4p.png" width="382"/></p>
+<p><span>2.以網路卡橋接啟動 Ubuntu 伺服器</span><img alt="" height="269" src="https://50733115.github.io/2019wcmj/images/VirtualBox_7Q7mK4kZM3.png" width="400"/><img alt="" height="125" src="https://50733115.github.io/2019wcmj/images/explorer_5ofGCyHjcZ.png" width="400"/></p>
+<p><span>3.以 ifconfig 查 Ubuntu 伺服器的 IP</span></p>
+<p><img alt="" height="223" src="/images/VEt2MVSavb.png" width="396"/></p>
+<p>4.以 sudo apt install nginx 安裝 nginx WWW 伺服器</p>
+<p><span><img alt="" height="223" src="/images/VEt2MVSavb.png" width="397"/></span></p>
+<p><span>5.以 Windows 10  下的 Filezilla client, 將編輯好的 nginx 設定檔案送到 Ubuntu</span></p>
+<p><span><img alt="" height="226" src="/images/vjiAep71KW.png" width="402"/></span></p>
+<p><span></span></p><h1>期中影片</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="644" src="https://www.youtube.com/embed/SH0WxVi9Agk" width="1189"></iframe></p>
 <h1>week_4</h1>
 <p><span>本週課程在說明如何利用 </span><a href="https://pages.github.com/">Github Pages</a><span><span> </span>與<span> </span></span><a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a><span>, 建立個人的靜態網際內容管理系統.</span></p>

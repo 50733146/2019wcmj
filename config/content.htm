@@ -323,8 +323,67 @@ ctx.restore();
 <h1>配置可攜程式環境</h1>
 <p><span>取得 Windows 10 64 位元環境下的可攜程式環境 (下載  2019_cdb_w5.7z), 下載後解開目錄, 放入 USB3.0 規格以上的隨身碟或隨身硬碟.</span><br/><br/><span>以滑鼠點擊 start.bat 開啟可攜隨身系統, 以 stop.bat 關閉可攜隨身系統,<span> </span><strong>隨身碟必須在關閉所有應用程式執行下, 才可正常退出.</strong></span><br/><br/><span>了解基本的 DOS (Disk Operating System) 指令</span><br/><br/><span>C:\&gt; 符號為 DOS 命令列視窗的回應 , 表示目前在 C 槽硬碟的 \ 根目錄, 若要切換到 Y 槽, 則在電腦的回應後, 輸入 Y:, 命令列將轉為</span><span>Y:\&gt;</span><br/><br/><span>若要<strong>更換目錄</strong>, 則使用<strong><span> </span>cd</strong>,例如:<strong> </strong></span><strong>Y:\&gt;cd tmp</strong><br/><br/><span>表示要從 Y 槽的根目錄更換到 tmp 目錄, 也就是 </span><span>Y:\tmp&gt;</span><br/><br/><span>若要再回到 Y 槽的根目錄, 可以使用 cd ..</span><br/><br/><span>表示要從目前所在目錄, 往上跳回一個目錄, 也就是重新回到 Y 槽的根目錄.</span><br/><br/><span>另外, 無論目前位於哪一個子目錄, 也可以使用 cd \</span><br/><br/><span>直接回到根目錄.</span><br/><br/><span>或者從<strong><span> </span>Y:\&gt; 直接使用</strong></span><br/><br/><strong>cd \tmp\repo\ssh\wcm2019</strong><br/><br/><span>直接從 Y 槽的根目錄, 跳進 Y:\tmp\repo\ssh\wcm2019&gt;</span><br/><br/><span>此外, 常用的 DOS 指令有:</span><br/><br/><span><strong>dir</strong><span> </span>- 列出目前所在目錄的內容</span><br/><br/><span><strong>mkdir</strong> - 隨後加上要建立目錄的名稱, 可以建立目錄</span></p>
 <p><span><strong>cls</strong> -清除目前的命令列顯示的內容</span></p>
-<p> </p>
-<p></p><h1>期中影片</h1>
+<h1>校園授權軟體下載</h1>
+<p><span><strong>1. 首次使用須先安裝SSL VPN 程式(Juniper Networks Connect)</strong></span></p>
+<p><span>(1)請依您的作業系統版本下載使用者端程式：<a href="https://drive.narlabs.org.tw/navigate/s/8F663EC143514CF295FCB53B5B228956GUY">連結</a></span></p>
+<p><span>(2)程式下載完成後，點擊兩下開始安裝。</span><br/><span>   <img alt=" archive 3629 d5014af5" src="https://nfucc.nfu.edu.tw/images/image/-archive-3629_d5014af5.png"/></span></p>
+<p><span>   </span></p>
+<hr size="2" width="100%"/>
+<div><span><strong>2. </strong><strong>進行身份驗證(可由Juniper Network Connect或IE，請擇一進行身分認證)</strong></span></div>
+<div><span></span></div>
+<div><span>2-1: Juniper Network Connect 應用程式認證</span></div>
+<blockquote>
+<div>
+<p><span>1."點選搜尋" &gt; 輸入程式名稱為Network Connect&gt; 點擊Network Connect</span></p>
+<p><span><img alt="5" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/5.jpg"/></span></p>
+<p><span>2.執行程式後，於"登入頁面"輸入網址 :<span> </span><a href="https://sslvpn.nfu.edu.tw/nfu">https://sslvpn9.twaren.net/nfu</a><span> </span>，後按下"執行"</span></p>
+<p><span><img alt="1" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/1.jpg"/></span></p>
+<p><span>3.輸入使用者帳號密碼，請填入校務行政AD帳號及密碼。請完整填寫您在校務行政AD帳號以及密碼，否則國網中心找不到對象進行身份確認<span> </span></span><br/><span>！(例: 員工編號或學號@ctx10.nfu.edu.tw）</span></p>
+<p><img alt="1" height="430" src="https://nfucc.nfu.edu.tw/images/1.PNG" width="472"/></p>
+<p>(以下為舊版本的登入畫面)</p>
+<p><span><img alt="2" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/2.jpg"/></span></p>
+<p></p>
+<p><span>4.出現"設定控制-警告"視窗，按下"是"</span></p>
+<p><span><img alt="3" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/3.jpg"/></span></p>
+</div>
+</blockquote>
+<div>
+<p><span>             5.螢幕右下角顯示"已連接"，表示已成功連線。</span></p>
+<p><span>             <img alt="4" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/4.jpg"/></span></p>
+</div>
+<div><span></span></div>
+<div><span>2-2: IE網認證</span></div>
+<blockquote>
+<div><span>1.請在IE瀏覽器上按下右鍵 使用"以系統管理員身分執行"</span></div>
+<div><span>登入頁面請輸入： <a href="https://sslvpn9.twaren.net/nfu">https://sslvpn9.twaren.net/nfu</a>，按下「執行」，會出現帳號與密碼登入欄位。</span><br/><span>請填入虎尾科技大學的校務行政AD帳號及密碼，並請輸入下方驗證碼，進行身份確認。</span><br/><span><span><span>請完整填寫您在虎尾科技大學的校務行政AD帳號以及密碼</span></span>，否則國網中心找不到對象進行身份確認！</span></div>
+<div><span>(例:<span><span> 員工編號或學號@ctx10.nfu.edu.tw</span></span>）</span><br/><span>填寫完畢以後按下Login登入就會開始進行身份確認，請稍後一段時間。</span></div>
+<div><span></span></div>
+<div><span><img alt="1" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/Web/1.jpg"/></span></div>
+<div><span></span></div>
+<div><span><img alt="2" height="493" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/Web/2.JPG" width="800"/></span></div>
+<div><span></span></div>
+<div><span>2.點選「開始」 </span></div>
+<div><span><img alt="3" height="493" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/Web/3.jpg" width="800"/></span></div>
+<div><span>3.點選「是」，SSL VPN程式安裝完畢後，就會開始跟你的電腦建立連線，請稍後一段時間。</span></div>
+<div>
+<p><span><img alt="5" height="493" src="https://nfucc.nfu.edu.tw/images/image/sslvpn/Web/5.jpg" width="800"/></span></p>
+</div>
+</blockquote>
+<div><hr size="2" width="100%"/></div>
+<div><span><strong> </strong></span></div>
+<blockquote>
+<div><span> <strong>5. </strong><strong>VPN</strong><strong>連線建立完成</strong></span></div>
+</blockquote>
+<blockquote><span>連線建立完成後，在電腦的工作列上(桌面右下角)，會出現 Juniper Network Connect VPN Client的圖示，表示VPN連線已經成功的建立在你的電腦上了。點擊圖示兩下，即可查看連線資訊。<span>(註:指派IP:一定為120.113.100.XX)</span>。</span><br/><span>到此，您的SSL-VPN連線已經成功的建立，不管是在家裡還是出差，您的電腦就像在學校使用一般，您可以自由的使用虎尾科技大學自己擁有的網路資源。</span>
+<div><span><img alt="153.png" src="https://nfucc.nfu.edu.tw/images/153.png"/></span></div>
+</blockquote>
+<div><hr size="2" width="100%"/></div>
+<div><span><strong>6. </strong><strong>連線IP檢視</strong>(*)</span></div>
+<blockquote>
+<div><span>如何得知連線的 IP 究竟是什麼呢？您可透過網際網路上提供 IP 位址偵測服務的網站進行確認，例如 <a href="http://showip.net/" target="_blank" title="Show IP"><span>http://showip.net/</span></a></span></div>
+<div><span><img alt="15313.png" src="https://nfucc.nfu.edu.tw/images/15313.png"/></span></div>
+<div></div>
+</blockquote><h1>期中影片</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="644" src="https://www.youtube.com/embed/SH0WxVi9Agk" width="1189"></iframe></p>
 <h1>week_4</h1>
 <p><span>本週課程在說明如何利用 </span><a href="https://pages.github.com/">Github Pages</a><span><span> </span>與<span> </span></span><a href="https://github.com/chiamingyen/cmsimfly">CMSimfly</a><span>, 建立個人的靜態網際內容管理系統.</span></p>

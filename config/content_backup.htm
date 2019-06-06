@@ -1,7 +1,6 @@
 <h1>★虎尾科技大學★</h1>
-<p>★幫學校打一下廣告★                    虎尾科技大學 五專部</p>
-<p><img alt="" height="472" src="/images/1525766916_2080.jpg" width="509"/><img alt="" height="407" src="/images/download.jpg" width="518"/></p>
-<h1>ROC Flag</h1>
+<p>★幫學校打一下廣告★                    <span>★</span>虎尾科技大學 五專部<span>★</span></p>
+<p><img caption="false" height="600" src="/images/1525766916_2080.jpg" width="647"/></p><h1>ROC Flag</h1>
 <!-- 導入 Brython 標準程式庫 -->
 <script src="/static/brython.js"></script>
 <script src="/static/brython_stdlib.js"></script>
@@ -120,9 +119,97 @@ ctx.closePath()
 # 填色設為白色
 ctx.fillStyle = '#fff'
 ctx.fill()
-</script><h1>Game</h1><h2>糞Game(一)</h2>
+</script>
+<p>flaskapp.py檔案進行修改，國旗才可顯示出來</p>
+<p><strong><span>def savePage() 的修改</span></strong></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">def savePage():
+    """save all pages function"""
+    page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = [w.replace('// &lt;![CDATA[', '') for w in page_content]
+    page_content = [w.replace('// ]]&gt;', '') for w in page_content]
+    # check if administrator
+......</pre>
+<p><strong><span>def ssavePage() 的修改</span></strong></p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">def ssavePage():
+    """seperate save page function"""
+    page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = page_content.replace('// &lt;![CDATA[', '')
+    page_content = page_content.replace('// ]]&gt;', '')
+    page_order = request.form['page_order']
+    if not isAdmin():
+......</pre>
+<p><br/><br/></p>
+<p>上述程式原始碼:</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">&lt;!-- 導入 Brython 標準程式庫 --&gt;
+&lt;script src="./../static/brython.js"&gt;&lt;/script&gt;
+&lt;script src="./../static/brython_stdlib.js"&gt;&lt;/script&gt;
+&lt;p&gt;&lt;/p&gt;
+&lt;!-- 啟動 Brython --&gt;
+&lt;script&gt;// &lt;![CDATA[
+window.onload=function(){
+// 設定 data/py 為共用程式路徑
+brython({debug:1, pythonpath:['./../data/py']});
+}
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;canvas height="400" id="plotarea" width="600"&gt;&lt;/canvas&gt;&lt;/p&gt;
+&lt;script type="text/python"&gt;// &lt;![CDATA[
+# 導入 doc
+from browser import document as doc
+import math
+ 
+# 準備繪圖畫布
+canvas = doc["plotarea"]
+ctx = canvas.getContext("2d")
+# 進行座標轉換, x 軸不變, y 軸反向且移動 canvas.height 單位光點
+# ctx.setTransform(1, 0, 0, -1, 0, canvas.height)
+# 以下採用 canvas 原始座標繪圖
+flag_w = canvas.width
+flag_h = canvas.height
+circle_x = flag_w/4
+circle_y = flag_h/4
+# 先畫滿地紅
+ctx.fillStyle='rgb(255, 0, 0)'
+ctx.fillRect(0,0,flag_w,flag_h)
+# 再畫青天
+ctx.fillStyle='rgb(0, 0, 150)'
+ctx.fillRect(0,0,flag_w/2,flag_h/2)
+# 畫十二道光芒白日
+ctx.beginPath()
+star_radius = flag_w/8
+angle = 0
+for i in range(24):
+    angle += 5*math.pi*2/12
+    toX = circle_x + math.cos(angle)*star_radius
+    toY = circle_y + math.sin(angle)*star_radius
+    # 只有 i 為 0 時移動到 toX, toY, 其餘都進行 lineTo
+    if (i):
+        ctx.lineTo(toX, toY)
+    else:
+        ctx.moveTo(toX, toY)
+ctx.closePath()
+# 將填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+# 白日:藍圈
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w*17/240, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為藍色
+ctx.fillStyle = 'rgb(0, 0, 149)'
+ctx.fill()
+# 白日:白心
+ctx.beginPath()
+ctx.arc(circle_x, circle_y, flag_w/16, 0, math.pi*2, True)
+ctx.closePath()
+# 填色設為白色
+ctx.fillStyle = '#fff'
+ctx.fill()
+// ]]&gt;&lt;/script&gt;</pre>
+<p></p><h1>Game</h1><h2>糞Game(一)</h2>
 <p></p>
-<script type="text/javascript">// <![CDATA[
+<script type="text/javascript">
 var cwidth = 400;
     var cheight = 300;
     var dicex = 50;
@@ -272,24 +359,173 @@ function draw2mid() {
     ctx.closePath();
     ctx.fill();
 }
-// ]]></script>
+</script>
 <p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas> <br/> <button onclick="throwdice();">Throw dice </button></p>
 <form id="f" name="f">Stage: <input name="stage" type="text" value="First Throw"/> Point: <input name="pv" type="text" value="   "/> Outcome: <input name="outcome" type="text" value="     "/></form>
-<h2>糞Game(二)</h2>
-<p></p>
+<p><span>上述程式原始碼:</span></p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">123&lt;script type="text/javascript"&gt;// &lt;![CDATA[
+var cwidth = 400;
+    var cheight = 300;
+    var dicex = 50;
+    var dicey = 50;
+    var dicewidth = 100;
+    var diceheight = 100;
+    var dotrad = 6;
+    var ctx;
+    var dx;
+    var dy;
+    var firstturn = true;
+    var point;
+function throwdice() {
+    var sum;
+    var ch = 1+Math.floor(Math.random()*6);
+    sum = ch;
+    dx = dicex;
+    dy = dicey;
+    drawface(ch);
+    dx = dicex + 150;
+    ch=1 + Math.floor(Math.random()*6);
+    sum += ch;
+    drawface(ch);
+    if (firstturn) {
+        switch(sum) {
+            case 7:
+            case 11:
+              document.f.outcome.value="You win!";
+              break;
+            case 2:
+            case 3:
+            case 12:
+              document.f.outcome.value="You lose!";
+              break;
+            default:
+              point = sum;
+              document.f.pv.value=point;
+              firstturn = false;
+              document.f.stage.value="Need follow-up throw.";
+              document.f.outcome.value="   ";
+        }
+    }
+    else {
+        switch(sum) {
+        case point:
+           document.f.outcome.value="You win!";
+           document.f.stage.value="Back to first throw.";
+           document.f.pv.value=" ";
+           firstturn = true;
+           break;
+        case 7:
+           document.f.outcome.value="You lose!";
+           document.f.stage.value="Back to first throw.";
+           document.f.pv.value=" ";
+           firstturn = true;
+        }
+            }
+}
+function drawface(n) {
+  ctx = document.getElementById('canvas').getContext('2d');  
+  ctx.lineWidth = 5;
+  ctx.clearRect(dx,dy,dicewidth,diceheight);
+  ctx.strokeRect(dx,dy,dicewidth,diceheight)
+  var dotx;
+  var doty;
+  ctx.fillStyle = "#009966";
+    switch(n) {
+        case 1:
+         draw1();
+         break;
+        case 2:
+         draw2();
+         break;
+        case 3:
+         draw2();
+         draw1();
+         break;
+        case 4:
+         draw4();
+         break;
+        case 5:
+         draw4();
+         draw1();
+         break;
+        case 6:
+         draw4();
+         draw2mid();
+         break;
+          
+    }
+}
+function draw1() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + .5*dicewidth;
+    doty = dy + .5*diceheight;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+}
+function draw2() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + 3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy+diceheight-3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+}
+function draw4() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + 3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy+diceheight-3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + diceheight-3*dotrad;  //no change
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy+ 3*dotrad;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill(); 
+}
+function draw2mid() {
+    var dotx;
+    var doty;
+    ctx.beginPath();
+    dotx = dx + 3*dotrad;
+    doty = dy + .5*diceheight;
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    dotx = dx+dicewidth-3*dotrad;
+    doty = dy + .5*diceheight; //no change
+    ctx.arc(dotx,doty,dotrad,0,Math.PI*2,true);
+    ctx.closePath();
+    ctx.fill();
+}
+// ]]&gt;&lt;/script&gt;
+&lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt; &lt;br&gt; &lt;button onclick="throwdice();"&gt;Throw dice &lt;/button&gt;&lt;/p&gt;
+&lt;form id="f" name="f"&gt;Stage: &lt;input name="stage" type="text" value="First Throw"&gt; Point: &lt;input name="pv" type="text" value="   "&gt; Outcome: &lt;input name="outcome" type="text" value="     "&gt;&lt;/form&gt;
+</pre>
+<p><br/><br/></p><h2>糞Game(二)</h2>
 <p><button onclick="myFunction()">核彈按鈕</button></p>
 <p id="demo"></p>
-<p></p>
-<script>// <![CDATA[
+<script>
 function myFunction() {
-  document.getElementById("demo").innerHTML = Math.floor(Math.random()*50 + 1);
-  //document.getElementById("demo").innerHTML = "不要亂按";
- //alert("不要亂按")
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*10);
 }
-// ]]></script>
-<h2>糞Game(三)</h2>
-<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
-<p></p>
+</script>
+<p>上述程式原始碼:</p>
 <script>
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext('2d');
@@ -317,10 +553,90 @@ ctx.clearRect(0, 0, canvas.width, canvas.height);
 ctx.restore();
 }
 </script>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;button onclick="myFunction()"&gt;Try it&lt;/button&gt;&lt;/p&gt;
+&lt;p id="demo"&gt;&lt;/p&gt;
+&lt;script&gt;// &lt;![CDATA[
+function myFunction() {
+  document.getElementById("demo").innerHTML = Math.floor(Math.random()*10);
+}
+// ]]&gt;&lt;/script&gt;
+</pre>
+<p><br/><br/></p><h2>糞Game(三)</h2>
+<p><canvas height="300" id="canvas" width="400"> Your browser doesn't support the HTML5 element canvas. </canvas></p>
+<script>
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
+  
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.closePath();
+ ctx.stroke();
+}
+  
+function clear_canvas(){
+// Store the current transformation matrix
+// The save() method pushes the current state onto the stack..
+ctx.save();
+  
+// Use the identity matrix while clearing the canvas
+// the setTransform() method lets you scale, rotate, move, and skew the current context.
+// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+// The restore() method pops the top state on the stack, restoring the context to that state.
+ctx.restore();
+}
+</script>
 <p><button onclick="draw()">繪圖</button> <button onclick="clear_canvas()">清除</button></p>
-<h1>倉儲改版指令</h1>
-<p><span>指令解釋</span><br/><br/><strong><span>git add</span></strong><br/><span> 可以用來新增一個檔案, 數個檔案, 或在之前提交後所新增的所有內容.</span><br/><span>git add 在 GIT 架構下, 是對所新增或修改的內容拍快照:</span><br/><br/><br/><strong><span>git commit -"改版說明訊息"</span></strong><br/><span> 執行之前, 必須使用 git config 建立臨時或永久的身分註記, 因為 GIT 在展開所有改版內容時, 必須明確登錄這些變更的作者與時間.</span><br/><span>當使用者採用 git commit -m "改版說明訊息", 此次提交到 .git 目錄下的更動內容, 均會綁定使用者身分與改版所輸入的說明訊息.</span><br/><br/><strong><span>git push</span></strong><br/><span> 在隨後沒有輸入遠端 URL 代號時, 表示要推送到 origin, 若透過 git remote add 設定其他代號與 URL 對應時, git push 加上代號, 就可以將此次的提交內容, 推送到指定的 URL 所在遠端倉儲. </span><br/><br/><br/><br/><br/><br/><strong><span></span></strong></p>
-<h1>配置可攜程式環境</h1>
+<p></p>
+<p>上述程式原始碼:</p>
+<pre class="brush:html;auto-links:false;toolbar:false" contenteditable="false">&lt;p&gt;&lt;canvas height="300" id="canvas" width="400"&gt; Your browser doesn't support the HTML5 element canvas. &lt;/canvas&gt;&lt;/p&gt;
+&lt;script&gt;
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext('2d');
+  
+function draw(){
+ ctx.beginPath();
+ ctx.strokeStyle = "rgb(200,0,0)";
+ ctx.arc(200, 200,50,0,2*Math.PI, false);
+ ctx.closePath();
+ ctx.stroke();
+}
+  
+function clear_canvas(){
+// Store the current transformation matrix
+// The save() method pushes the current state onto the stack..
+ctx.save();
+  
+// Use the identity matrix while clearing the canvas
+// the setTransform() method lets you scale, rotate, move, and skew the current context.
+// setTransform(Horizontal scaling, Horizontal skewing,Vertical skewing, Vertical scaling, Horizontal moving, Vertical moving)
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Restore the transform
+// The restore() method pops the top state on the stack, restoring the context to that state.
+ctx.restore();
+}
+&lt;/script&gt;
+&lt;p&gt;&lt;button onclick="draw()"&gt;繪圖&lt;/button&gt; &lt;button onclick="clear_canvas()"&gt;清除&lt;/button&gt;&lt;/p&gt;</pre>
+<p></p><h1>倉儲改版指令</h1>
+<p><span>指令解釋</span><br/><br/><span style="color: #ff0000;"><strong>git add</strong></span><br/><span> 可以用來新增一個檔案, 數個檔案, 或在之前提交後所新增的所有內容.</span><br/><span>git add 在 GIT 架構下, 是對所新增或修改的內容拍快照:</span><br/><br/><br/><span style="color: #ff0000;"><strong>git commit -"改版說明訊息"</strong></span><br/><span> 執行之前, 必須使用 git config 建立臨時或永久的身分註記, 因為 GIT 在展開所有改版內容時, 必須明確登錄這些變更的作者與時間.</span><br/><span>當使用者採用 git commit -m "改版說明訊息", 此次提交到 .git 目錄下的更動內容, 均會綁定使用者身分與改版所輸入的說明訊息.</span><br/><br/><span style="color: #ff0000;"><strong>git push</strong></span><br/><span> 在隨後沒有輸入遠端 URL 代號時, 表示要推送到 origin, 若透過 git remote add 設定其他代號與 URL 對應時, git push 加上代號, 就可以將此次的提交內容, 推送到指定的 URL 所在遠端倉儲. </span><br/><br/></p><h1>Proxy連線</h1>
+<p>第一步:到任意網站(範例:Chrome)選取右上角管理--&gt;設定</p>
+<p><img alt="" height="621" src="/images/17tWgmAhdy.png" width="369"/></p>
+<p><img alt="" height="486" src="https://50733118.github.io/2019wcmj/images/p2.png" width="397"/></p>
+<p>第二步:進階--&gt;系統-開啟Proxy設定</p>
+<p><img alt="" height="345" src="https://50733118.github.io/2019wcmj/images/p3.png" width="698"/></p>
+<p><img alt="" height="220" src="https://50733118.github.io/2019wcmj/images/p4.png" width="720"/></p>
+<p>第三步:連線--&gt;LAN設定</p>
+<p><img alt="" height="610" src="https://50733118.github.io/2019wcmj/images/p5.png" width="477"/></p>
+<p>第四步:把Proxy位址改學校IP:140.130.17.3</p>
+<p>學校連接<span>埠:3128</span></p>
+<p><img caption="false" height="386" src="https://50733118.github.io/2019wcmj/images/p6.png" width="443"/></p>
+<p>設定完成即可</p>
+<p><br/><br/><br/><br/><strong><span></span></strong></p><h1>配置可攜程式環境</h1>
 <p><span>取得 Windows 10 64 位元環境下的可攜程式環境 (下載  2019_cdb_w5.7z), 下載後解開目錄, 放入 USB3.0 規格以上的隨身碟或隨身硬碟.</span><br/><br/><span>以滑鼠點擊 start.bat 開啟可攜隨身系統, 以 stop.bat 關閉可攜隨身系統,<span> </span><strong>隨身碟必須在關閉所有應用程式執行下, 才可正常退出.</strong></span><br/><br/><span>了解基本的 DOS (Disk Operating System) 指令</span><br/><br/><span>C:\&gt; 符號為 DOS 命令列視窗的回應 , 表示目前在 C 槽硬碟的 \ 根目錄, 若要切換到 Y 槽, 則在電腦的回應後, 輸入 Y:, 命令列將轉為</span><span>Y:\&gt;</span><br/><br/><span>若要<strong>更換目錄</strong>, 則使用<strong><span> </span>cd</strong>,例如:<strong> </strong></span><strong>Y:\&gt;cd tmp</strong><br/><br/><span>表示要從 Y 槽的根目錄更換到 tmp 目錄, 也就是 </span><span>Y:\tmp&gt;</span><br/><br/><span>若要再回到 Y 槽的根目錄, 可以使用 cd ..</span><br/><br/><span>表示要從目前所在目錄, 往上跳回一個目錄, 也就是重新回到 Y 槽的根目錄.</span><br/><br/><span>另外, 無論目前位於哪一個子目錄, 也可以使用 cd \</span><br/><br/><span>直接回到根目錄.</span><br/><br/><span>或者從<strong><span> </span>Y:\&gt; 直接使用</strong></span><br/><br/><strong>cd \tmp\repo\ssh\wcm2019</strong><br/><br/><span>直接從 Y 槽的根目錄, 跳進 Y:\tmp\repo\ssh\wcm2019&gt;</span><br/><br/><span>此外, 常用的 DOS 指令有:</span><br/><br/><span><strong>dir</strong><span> </span>- 列出目前所在目錄的內容</span><br/><br/><span><strong>mkdir</strong> - 隨後加上要建立目錄的名稱, 可以建立目錄</span></p>
 <p><span><strong>cls</strong> -清除目前的命令列顯示的內容</span></p>
 <h1>SSL-VPN服務</h1>
@@ -382,7 +698,8 @@ ctx.restore();
 <blockquote>
 <div><span>如何得知連線的 IP 究竟是什麼呢？您可透過網際網路上提供 IP 位址偵測服務的網站進行確認，例如 <a href="http://showip.net/" target="_blank" title="Show IP"><span>http://showip.net/</span></a></span></div>
 <div><span><img alt="15313.png" src="https://nfucc.nfu.edu.tw/images/15313.png"/></span></div>
-</blockquote><h1>VirtualBox</h1>
+</blockquote>
+<h1>VirtualBox</h1>
 <p>1.建立 Ubuntu 18.04 虛擬主機</p>
 <p><span><img caption="false" height="600" src="/images/6.png" width="735"/></span></p>
 <p><span><img caption="false" height="600" src="/images/5.png" width="736"/></span></p>
@@ -390,17 +707,22 @@ ctx.restore();
 <p><span><img caption="false" height="600" src="/images/3.png" width="588"/></span></p>
 <p><span><img caption="false" height="600" src="/images/2.png" width="588"/></span></p>
 <p><span><img caption="false" height="600" src="/images/1.png" width="893"/></span></p>
-<p><span></span></p>
-<p><span>以 </span></p>
-<p><span></span><span>ifconfig 查 Ubuntu 伺服器的 IP</span></p>
+<p><span>2.以 </span><span></span><span>ifconfig 查 Ubuntu 伺服器的 IP</span><br/><span></span></p>
 <p><img caption="false" height="600" src="/images/VEt2MVSavb.png" width="1065"/></p>
-<p>4.以 sudo apt install nginx 安裝 nginx WWW 伺服器</p>
+<p>3.以 sudo apt install nginx 安裝 nginx WWW 伺服器</p>
 <p><span><img caption="false" height="600" src="/images/VEt2MVSavb.png" width="1068"/></span></p>
-<p></p>
-<p><span></span><span>5.以 Windows 10  下的 Filezilla client, 將編輯好的 nginx 設定檔案送到 Ubuntu</span></p>
+<p>4.以 Windows 10  下的 Filezilla client, 將編輯好的 nginx 設定檔案送到 Ubuntu</p>
 <p><span><img caption="false" height="600" src="/images/vjiAep71KW.png" width="1067"/></span></p>
-<p><span><img caption="false" height="600" src="/images/f1WjZpkICo.png" width="1068"/><img caption="false" height="600" src="/images/chrome_gwu0NebDlv.png" width="1066"/><img caption="false" height="600" src="/images/chrome_2Bry7DFVTG.png" width="1065"/></span></p>
-<p><span></span></p>
+<p><span>5.傳輸完成重新開機查詢IP</span></p>
+<p><span><img caption="false" height="600" src="/images/f1WjZpkICo.png" width="1068"/></span></p>
+<p>6.在瀏覽器輸入    <a href="http://127.0.0.1"><span style="color: #0000ff;">http://</span> </a>    IP  為虛擬主機開啟的<span style="color: #0000ff;">靜態網站</span></p>
+<p><span><img caption="false" height="600" src="/images/chrome_gwu0NebDlv.png" width="1066"/></span></p>
+<p><span>7.</span>在瀏覽器輸入   <span> </span><a href="http://%20/"><span style="color: #0000ff;">https://</span> </a>    IP  為虛擬主機開啟的<span style="color: #0000ff;">動態網站</span></p>
+<p><span><img alt="" height="600" src="/images/chrome_VLZxyfaZtZ.png" width="1117"/></span></p>
+<p><span> </span></p>
+<p><span>8.在瀏覽器輸入    <a href="http://%20/"><span style="color: #0000ff;">https://</span> </a>    IP <span style="color: #0000ff;">:5443</span> 為虛擬主機開啟的<span style="color: #0000ff;">fossil網站</span></span></p>
+<p><span style="color: #000000;"></span></p>
+<p><img alt="" height="600" src="/images/eMODuO6hTv.png" width="1116"/></p>
 <p><span></span></p><h1>期中影片</h1>
 <p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="644" src="https://www.youtube.com/embed/SH0WxVi9Agk" width="1189"></iframe></p>
 <h1>week_4</h1>
@@ -506,7 +828,7 @@ Host github.com_user2
 <h2>網際內容管理課程回顧</h2>
 <p><span style="background-color: #ffff99; color: #000000;">2019 Spring 網際內容管理課程</span><br/><br/><strong><span style="color: #0000ff;">五專部</span></strong><br/><br/><strong><span style="color: #ff0000;">1. 是否已經在自己的隨身碟建立隨身程式系統?</span></strong><br/><br/><span>此一隨身系統以</span><a href="https://drive.google.com/open?id=1_TQBw1PM7jxrmtsBjvLKbjJWfGs8Ug79"><span> </span>2019_cdb_w5.7z</a><span><span> </span>為基礎, 使用者必須會自行查驗</span><br/><br/><span>    是否已經將 portablegit 中的 helper = manager 的設定移除?</span><br/><span>     python 是否已經安裝 flask, bs4 與 lxml 模組?</span><br/><span>    (1)是否了解 git 以 https 連線時, proxy 將採用那一個檔案中的設定?</span><br/><span>    (2)是否已經學會如何採用 ssh 模式維護 github 上的倉儲?</span><br/><span>    (3)是否了解 CMSimfly 動態與靜態系統之間的關係?</span><br/><span>    (4)是否會在 CMSimfly 中上傳檔案, 引用檔案?</span><br/><span>    (5)是否會在 CMsimfly 中上傳圖檔, 引用圖檔?</span><br/><span>    (6)是否會在 CMSimfly 中嵌入 Youtube 影片?</span><br/><span>    (7)是否會在 CMSimfly 頁面中加入 Javascript 互動程式?</span><br/><span>    (8)是否會更改 CMsimfly 靜態系統所使用的模板?</span><br/><span>    (9)是否能將 USB 隨身碟格式為 NTFS 或 extFAT, 以便放入 Ubuntu 虛擬主機檔案?</span><br/><span>    (10)是否會使用自己隨身碟中的 Virtualbox 與 Ubuntu 中的 Fossil SCM 來伺服靜態 CMSimfly 檔案?</span><br/><span>    (11)是否會使用自己隨身碟中的 Virtualbox 與 Ubuntu 中的 uwsgi 來伺服動態 CMSimfly 系統?</span><br/><br/><strong><span style="color: #ff0000;">2. 是否已經根據各上述階段任務的操作拍成說明影片, 嵌入自己的 Github Pages 網站?</span></strong><br/><br/><strong><span style="color: #ff0000;">3. 是否已經著手執行各學員的期末專案, 是否了解各學員的期末報告, 必須同時呈現 html 與 pdf 版本.</span></strong><br/><br/><span>各學員繳交供評分之內容: 個人倉儲 Github Pages 網站及 pdf 格式之期末報告.</span></p>
 <h1>期末影片</h1>
-<h1>救救台灣</h1>
+<p><span>網際內容管理課程</span><br/><br/><span>評分比例:</span><br/><br/><span>    學員出席 (20%)</span><br/><br/><span>    電腦組裝與操作系統安裝 (10%) - 以 Virtualbox 虛擬主機配置與設定取代實體安裝</span><br/><br/><span>    網路連線配置與設定  (10%)</span><br/><br/><span>    Github 倉儲與 CMSimfly 配置 (30%)</span><br/><br/><span>    CMSimfly 操作 (20%)</span><br/><br/><span>    CMSimfly 開發 (10%)</span><br/><br/><span>評分方式:</span><br/><br/><span>    WCM 每週自評與互評表單:<span> </span></span><a href="https://goo.gl/forms/gExeWw3JIrenXi453">https://goo.gl/forms/gExeWw3JIrenXi453</a><br/><br/><span>    學員自我評量 (30%)</span><br/><br/><span>    分組自我評量 (30%)</span><br/><br/><span>    倉儲歷程查驗 (40%)</span></p><h1>救救台灣</h1>
 <p>★跟著館長一起深蹲★</p>
 <p><img alt="" height="326" src="/images/maxresdefault.jpg" width="579"/></p>
 <h2>協議不能重談</h2>

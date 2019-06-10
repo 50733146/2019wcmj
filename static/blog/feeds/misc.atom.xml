@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>CMSimfly 網際內容管理 - Misc</title><link href="https://chiamingyen.github.io/cmsimfly/blog/" rel="alternate"></link><link href="https://chiamingyen.github.io/cmsimfly/blog/feeds/misc.atom.xml" rel="self"></link><id>https://chiamingyen.github.io/cmsimfly/blog/</id><updated>2018-09-10T11:00:00+08:00</updated><entry><title>2018 Fall CP 課程</title><link href="https://chiamingyen.github.io/cmsimfly/blog/2018-Fall-32-bit-Windows.html" rel="alternate"></link><published>2018-09-10T11:00:00+08:00</published><updated>2018-09-10T11:00:00+08:00</updated><author><name>yen</name></author><id>tag:chiamingyen.github.io,2018-09-10:/cmsimfly/blog/2018-Fall-32-bit-Windows.html</id><summary type="html">&lt;p&gt;2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題. 只有 Eric6 因為缺少必要模組與 Python 3.7.0 對應的 pyqt5-tools, 因此沒有安裝.&lt;/p&gt;
+
+
+&lt;h2&gt;電腦規格&lt;/h2&gt;
+&lt;p&gt;目前系上已經沒有 32 位元 Windows 操作系統的電腦, 所以先前只要有學生提到所使用的電腦是舊型 32 位元的 Windows XP 或 Windows …&lt;/p&gt;</summary><content type="html">&lt;p&gt;2018 Fall 一開始, 在一台已經 10 年的 32 位元的 Windows 7 操作系統中工作. 可攜的 Python 3.7.0 仍然可以配置, Leo Editor、PyQt5、flask、Markdown、pelican 與 bs4 的安裝, 也都沒有問題. 只有 Eric6 因為缺少必要模組與 Python 3.7.0 對應的 pyqt5-tools, 因此沒有安裝.&lt;/p&gt;
+
+
+&lt;h2&gt;電腦規格&lt;/h2&gt;
+&lt;p&gt;目前系上已經沒有 32 位元 Windows 操作系統的電腦, 所以先前只要有學生提到所使用的電腦是舊型 32 位元的 Windows XP 或 Windows 7, 都無法提供相應的可攜程式系統.&lt;/p&gt;
+&lt;p&gt;但是, 當您桌上就只一台早期 Sony 推出的 VGC-LM26T 電腦, 採用 Intel core 2 Duo T8100 2.1 GHz 裝載 32 位元 Windows 7, 記憶體只有 2GB 的老舊電腦.&lt;/p&gt;
+&lt;p&gt;夠用嗎?&lt;/p&gt;
+&lt;p&gt;當然可以, 使用的是特別製作的 &lt;a href="https://mde1a1.kmol.info/2017fall/raw/p37_32.7z?name=c272a694f98180f8d1272b43f7d7b4fdd8f7f550"&gt;32 位元可攜系統&lt;/a&gt;, 除了不支援 Eric6 之外, 其餘功能都與 64 位元的  &lt;a href="https://drive.google.com/file/d/1DWtyoUhl8CycKJ8uulB3viRXE39KqpE1/view?usp=sharing"&gt;p37&lt;/a&gt; 相同.&lt;/p&gt;
+&lt;h2&gt;工作流程&lt;/h2&gt;
+&lt;p&gt;從 2018 Fall 開始, 前半學期希望每位計算機程課程的學員, 都能透過 &lt;a href="http://mde.tw/cp2018/content/"&gt;2018 計算機程式教材&lt;/a&gt; 內容, 深入學習 Python 3 各種程式語法, 利用 &lt;a href="https://github.com/chiamingyen/cmsimfly"&gt;CMSimfly&lt;/a&gt;、&lt;a href="https://github.com/getpelican/pelican"&gt;Pelican&lt;/a&gt; 與 &lt;a href="https://revealjs.com/"&gt;Reveal.js&lt;/a&gt;, 熟悉如何在 &lt;a href="https://github.com/"&gt;Github&lt;/a&gt; 配置自己的網站、網誌與網際簡報系統.&lt;/p&gt;
+&lt;p&gt;使用時, 啟動隨身系統的 start.bat, 利用命令列指令, git clone https://github.com/mdecourse/2018fall, 然後將內容配置在各自的 &lt;a href="https://github.com/"&gt;Github&lt;/a&gt; 帳號下.&lt;/p&gt;
+&lt;h2&gt;程式專案&lt;/h2&gt;
+&lt;p&gt;早在 1999 年, 就已經開始進行所謂&lt;a href="https://webcache.googleusercontent.com/search?q=cache:sqYPNC8_mgoJ:https://www.most.gov.tw/sci/ch/detail%3Farticle_uid%3D4ee546e6-73fa-43a8-b1df-a5a0a1fe1824%26menu_id%3D0bac23e6-b3df-4fe0-b152-2e1050eb2f2c%26content_type%3DP%26view_mode%3DlistView+&amp;amp;cd=6&amp;amp;hl=zh-TW&amp;amp;ct=clnk&amp;amp;gl=tw"&gt;網際機械設計資源中心&lt;/a&gt;的構建, 想像中的資源中心是一套網際專家系統, 包含各式機械設計流程中所需的模組, 全部依附在一個相對穩定, 可以持續改進的核心架構下, 類似 &lt;a href="https://github.com/jhpyle/docassemble"&gt;docassemble&lt;/a&gt; 的一套系統.&lt;/p&gt;
+&lt;p&gt;將近二十年過去, &lt;a href="https://webcache.googleusercontent.com/search?q=cache:sqYPNC8_mgoJ:https://www.most.gov.tw/sci/ch/detail%3Farticle_uid%3D4ee546e6-73fa-43a8-b1df-a5a0a1fe1824%26menu_id%3D0bac23e6-b3df-4fe0-b152-2e1050eb2f2c%26content_type%3DP%26view_mode%3DlistView+&amp;amp;cd=6&amp;amp;hl=zh-TW&amp;amp;ct=clnk&amp;amp;gl=tw"&gt;網際機械設計資源中心&lt;/a&gt;始終仍只有片段系統, 其中包含 &lt;a href="https://github.com/chiamingyen/cmsimfly"&gt;CMSimfly&lt;/a&gt;、&lt;a href="https://github.com/chiamingyen/pygrouf"&gt;Pygrouf&lt;/a&gt; 與 &lt;a href="https://github.com/KmolYuan/Pyslvs-PyQt5"&gt;Pyslvs&lt;/a&gt; (&lt;a href="http://www.pyslvs.com/content/"&gt;Pyslvs 手冊&lt;/a&gt;)等相關專案.&lt;/p&gt;
+&lt;p&gt;就如同&lt;a href="http://blog.ez2learn.com/2009/06/27/how-to-write-useful-program/"&gt;如何寫出有用的程式?&lt;/a&gt; 一文中所述, "沒有興趣不要來念資工" 是一句非常貼切的警語, 當學生對於程式設計提不起興趣, 沒有將所學的各式語法、資料結構與演算法, 套用在自己非常有興趣的領域中, 用來解決各式問題的話, 日復一日, 我們還是寫不出任何有用的程式!&lt;/p&gt;
+&lt;h2&gt;早該起頭的重要工作&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://www.quora.com/Why-is-programming-so-important-in-the-modern-world"&gt;計算機程式的重要性&lt;/a&gt;其實已經無需爭辯, 人類未來的許多工作都是透過網路與數位運算達成, 既知趨勢如此, 每一位工程師就該越早起頭原本就該進行的重要工作, 透過計算機程式來解決問題, 構築一個值得長期投注心力的程式專案.&lt;/p&gt;</content><category term="2018FallCP"></category></entry></feed>

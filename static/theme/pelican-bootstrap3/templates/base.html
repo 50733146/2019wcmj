@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock %}"
+      {% if USE_OPEN_GRAPH %}
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml"{% endif %}>
+<head>
+    <title>{% block title %}{{ SITENAME }}{% endblock %}</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!--
+    {% if 'liquid_tags.notebook' in PLUGINS %}
+        {% include 'includes/liquid_tags_nb_header.html' %}
+    {% endif %}
+-->
+
+<!-- for LaTeX equations -->
+<script src="./../data/math/MathJax.js?config=TeX-AMS_HTML" type="text/javascript"></script>
+<script type="text/javascript">
+init_mathjax = function() {
+    if (window.MathJax) {
+        // MathJax loaded
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            },
+            displayAlign: 'left', // Change this to 'center' to center equations.
+            "HTML-CSS": {
+                styles: {'.MathJax_Display': {"margin": 0}}
+            }
+        });
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
+}
+init_mathjax();
+</script>
+
+    {# Favicons are a touchy subject. For reasoning for the following code, see: http://stackoverflow.com/a/23851464/872397 #}
+    {% if FAVICON %}
+    <link href="{{ SITEURL }}/{{ FAVICON }}" rel="icon">
+    {% endif %}
+    {% if FAVICON_IE %}
+    <!--[if IE]><link rel="shortcut icon" href="{{ SITEURL }}/{{ FAVICON_IE }}"><![endif]-->
+    {% endif %}
+    {% if TOUCHICON %}
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/{{ TOUCHICON }}">
+    {% endif %}
+
+    {% block canonical_rel %}{% endblock %}
+
+    {% block meta %}
+        <meta name="author" content="{{ AUTHOR }}" />
+    {% endblock %}
+
+    {# Open Graph tags #}
+    {% if USE_OPEN_GRAPH is not defined %}
+        {% set USE_OPEN_GRAPH = True %}
+    {% endif %}
+    {% if USE_OPEN_GRAPH %}
+    {% block opengraph %}
+    <!-- Open Graph tags -->
+        {% if OPEN_GRAPH_FB_APP_ID %}
+            <meta property="fb:app_id" content="{{ OPEN_GRAPH_FB_APP_ID }}"/>
+        {% endif %}
+        <meta property="og:site_name" content="{{ SITENAME }}" />
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="{{ SITENAME }}"/>
+        <meta property="og:url" content="{{ SITEURL }}"/>
+        <meta property="og:description" content="{{ SITENAME }}"/>
+        {% if OPEN_GRAPH_IMAGE %}
+            <meta property="og:image"
+                  content="{{ SITEURL }}/{{ OPEN_GRAPH_IMAGE }}"/>
+        {% endif %}
+    {% endblock %}
+    {% endif %}
+
+    {# Twitter Cards tags #}
+    {% include 'includes/twitter_cards.html' %}
+
+    <!-- Bootstrap -->
+    {% if BOOTSTRAP_THEME %}
+        <link rel="stylesheet" href="{{ SITEURL }}/theme/css/bootstrap.{{ BOOTSTRAP_THEME }}.min.css" type="text/css"/>
+    {% else %}
+        <link rel="stylesheet" href="{{ SITEURL }}/theme/css/bootstrap.min.css" type="text/css"/>
+    {% endif %}
+    <link href="{{ SITEURL }}/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="{{ SITEURL }}/theme/css/pygments/{{ PYGMENTS_STYLE|default('native') }}.css" rel="stylesheet">
+    {% if 'tipue_search' in PLUGINS %}
+    <link href="{{ SITEURL}}/theme/tipuesearch/tipuesearch.css" rel="stylesheet">
+    {% endif %}
+    {% if DOCUTIL_CSS %}
+        <link href="{{ SITEURL }}/theme/css/html4css1.css" rel="stylesheet">
+    {% endif %}
+    {% if TYPOGRIFY %}
+        <link href="{{ SITEURL }}/theme/css/typogrify.css" rel="stylesheet">
+    {% endif %}
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/style.css" type="text/css"/>
+    {% if CUSTOM_CSS %}
+        <link href="{{ SITEURL }}/{{ CUSTOM_CSS }}" rel="stylesheet">
+    {% endif %}
+    {% if SHARIFF %}
+        <link href="{{ SITEURL }}/theme/css/shariff/shariff.min.css" rel="stylesheet">
+    {% endif %}
+
+    {% if FEED_ALL_ATOM %}
+        <link href="{{ SITEURL }}/{{ FEED_ALL_ATOM }}" type="application/atom+xml" rel="alternate"
+              title="{{ SITENAME }} ATOM Feed"/>
+    {% endif %}
+    {% if FEED_ALL_RSS %}
+        <link href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate"
+              title="{{ SITENAME }} RSS Feed"/>
+    {% endif %}
+
+<!--
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushMakefile.min.js"></script>
+<script type="text/javascript" src="https://coursemdetw.github.io/project_site_files/files/syntaxhighlighter/shBrushMakefile.js"></script>
+-->
+
+<script type="text/javascript" src="./../data/syntaxhighlighter/shCore.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushJava.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPython.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushSql.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushXml.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushPhp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCpp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCss.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushCSharp.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushBash.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushLua.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.min.js"></script>
+<script type="text/javascript" src="./../data/syntaxhighlighter/shBrushMakefile.js"></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "https://chiamingyen.github.io/kmolab_data/files/syntaxhighlighter/css/shCore.css";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "https://chiamingyen.github.io/kmolab_data/files/syntaxhighlighter/css/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<!-- for table style start -->
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 15px;
+}
+</style>
+<!-- for table style end -->
+
+</head>
+<body>
+
+<div class="navbar {% if BOOTSTRAP_NAVBAR_INVERSE %}navbar-inverse{% else %}navbar-default{% endif %} navbar-fixed-top" role="navigation">
+	<div class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="{{ SITEURL }}/" class="navbar-brand">
+                {% if SITELOGO %}<img src="{{ SITEURL }}/{{ SITELOGO }}" width="{{ SITELOGO_SIZE }}"/> {% endif %}
+                {% if not HIDE_SITENAME %}{{ SITENAME }}{% endif %}
+            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                {% for title, link in MENUITEMS %}
+                    <li><a href="{{ link }}">{{ title }}</a></li>
+                {% endfor %}
+                {% if DISPLAY_PAGES_ON_MENU %}
+                    {% for p in PAGES %}
+                         <li{% if p == page %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ p.url }}">
+                             {{ p.menulabel|default(p.title) }}
+                          </a></li>
+                      {% endfor %}
+                {% endif %}
+                {% if DISPLAY_CATEGORIES_ON_MENU %}
+                    {% for cat, null in categories %}
+                        <li {% if cat == category %}class="active"{% endif %}>
+                            <a href="{{ SITEURL }}/{{ cat.url }}">{{ cat | capitalize }}</a>
+                        </li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            {% if 'tipue_search' in PLUGINS %}
+              <li><span>
+                <form class="navbar-search" action="{{ SITEURL }}/search.html">
+                  <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input" required>
+                </form></span>
+              </li>
+            {% endif %}
+              <li><a href="{{ SITEURL }}/{{ ARCHIVES_URL | default('archives.html') }}"><i class="fa fa-th-list"></i><span class="icon-label">Archives</span></a></li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+{% if BANNER and BANNER_ALL_PAGES %}
+    {% include 'includes/banner.html' %}
+{% elif BANNER and not BANNER_ALL_PAGES %}
+    {% block banner %}{% endblock %}
+{% endif %}
+<!-- End Banner -->
+<div class="container{% if BOOTSTRAP_FLUID %}-fluid{% endif %}">
+    <div class="row">
+        {% if not HIDE_SIDEBAR or ABOUT_ME %}
+        <div class="col-sm-9">
+        {% else %}
+        <div class="col-lg-12">
+        {% endif %}
+        {% block breadcrumbs %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+        </div>
+        {% if not HIDE_SIDEBAR or ABOUT_ME %}
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+            {% if ABOUT_ME %}
+                {% include 'includes/aboutme.html' %}
+            {% endif %}
+            {% if not HIDE_SIDEBAR %}
+                {% include 'includes/sidebar.html' %}
+            {% endif %}
+            </aside>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% include 'includes/footer.html' %}
+
+<script src="{{ SITEURL }}/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="{{ SITEURL }}/theme/js/bootstrap.min.js"></script>
+
+<!-- for https://github.com/jsor/lity lightbox video popup -->
+
+<link href="{{ SITEURL }}/theme/css/lity.css" rel="stylesheet">
+
+<script src="{{ SITEURL }}/theme/js/lity.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="{{ SITEURL }}/theme/js/respond.min.js"></script>
+
+{% if BANNER %}
+    <script src="{{ SITEURL }}/theme/js/bodypadding.js"></script>
+{% endif %}
+{% include 'includes/github-js.html' %}
+{% include 'includes/disqus_script.html' %}
+{% include 'includes/ga.html' %}
+{% include 'includes/piwik.html' %}
+
+{% block scripts %}{% endblock %}
+</body>
+</html>

@@ -10,6 +10,7 @@
 <v t="amd.20160714225308.2"><vh>@data qt-gui-plugin-style-sheet</vh></v>
 <v t="amd.20160714225308.3"><vh>@string initial_split_orientation = horizontal</vh></v>
 </v>
+<v t="leo.20190501134205.1"><vh>Chimper 修改</vh></v>
 <v t="leo.20180702145534.1"><vh>wsgi start/stop</vh>
 <v t="leo.20180702142719.1"><vh>@button start wsgi</vh></v>
 <v t="leo.20180702142849.1"><vh>@button stop wsgi</vh></v>
@@ -42,6 +43,7 @@
 <v t="leo.20181005174347.1"><vh>2018Fall 改版</vh></v>
 <v t="leo.20180915084539.1"><vh>20180915</vh></v>
 <v t="leo.20190104175029.1"><vh>20190104</vh></v>
+<v t="leo.20190502201351.1"><vh>20190501</vh></v>
 <v t="amd.20160718002238.1"><vh>參考資料</vh></v>
 <v t="amd.20160717220157.1"><vh>Flask 開講</vh></v>
 </v>
@@ -107,7 +109,8 @@
 <v t="leo.20181002215447.1"><vh>_remove_h123_attrs</vh></v>
 <v t="leo.20181002215437.1"><vh>parse_content</vh></v>
 <v t="amd.20160714231359.1"><vh>render_menu</vh></v>
-<v t="leo.20180630203542.1"><vh>render_menu2</vh></v>
+<v t="leo.20190501134829.1"><vh>render_menu2</vh></v>
+<v t="leo.20180630203542.1"><vh>render_menu3</vh></v>
 <v t="amd.20160715161730.1"><vh>saveConfig</vh></v>
 <v t="amd.20160715154534.1"><vh>savePage</vh></v>
 <v t="amd.20160714231440.1"><vh>search_content</vh></v>
@@ -1070,6 +1073,7 @@ a.xhfbfile:hover{
 &lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
 &lt;title&gt;''' + init.Init.site_title + '''&lt;/title&gt; \
 &lt;link rel="stylesheet" type="text/css" href="/static/cmsimply.css"&gt;
+&lt;link rel="shortcut icon" href="/static/favicons.png"&gt;
 ''' + syntaxhighlight()
 
     outstring += '''
@@ -1242,6 +1246,9 @@ def logout():
 def savePage():
     """save all pages function"""
     page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = [w.replace('// &lt;![CDATA[', '') for w in page_content]
+    page_content = [w.replace('// ]]&gt;', '') for w in page_content]
     # check if administrator
     if not isAdmin():
         return redirect("/login")
@@ -1250,7 +1257,9 @@ def savePage():
     # 在插入新頁面資料前, 先複製 content.htm 一分到 content_backup.htm
     shutil.copy2(config_dir + "content.htm", config_dir + "content_backup.htm")
     # in Windows client operator, to avoid textarea add extra \n
-    page_content = page_content.replace("\n","")
+    # fix list object has no attribute "replace"
+    #page_content = page_content.replace("\n","")
+    page_content =  [w.replace('\n', '') for w in page_content]
     with open(config_dir + "content.htm", "w", encoding="utf-8") as f:
         f.write(page_content)
     return redirect("/edit_page")
@@ -1261,6 +1270,9 @@ def savePage():
 def ssavePage():
     """seperate save page function"""
     page_content = request.form['page_content']
+    # when element_format : "html", need to remove the annoying comment to prevent brython exec
+    page_content = page_content.replace('// &lt;![CDATA[', '')
+    page_content = page_content.replace('// ]]&gt;', '')
     page_order = request.form['page_order']
     if not isAdmin():
         return redirect("/login")
@@ -1291,12 +1303,15 @@ def ssavePage():
     # 嘗試避免因最後一個標題刪除儲存後產生 internal error 問題
     if original_head_title is None:
         return redirect("/")
-    if original_head_title == head[int(page_order)]:
-        #edit_url = "/get_page/" + urllib.parse.quote_plus(head[int(page_order)]) + "&amp;edit=1"
-        #edit_url = "/get_page/" + urllib.parse.quote_plus(original_head_title) + "/1"
-        edit_url = "/get_page/" + original_head_title + "/1"
-        return redirect(edit_url)
-    else:
+    try:
+        if original_head_title == head[int(page_order)]:
+            #edit_url = "/get_page/" + urllib.parse.quote_plus(head[int(page_order)]) + "&amp;edit=1"
+            #edit_url = "/get_page/" + urllib.parse.quote_plus(original_head_title) + "/1"
+            edit_url = "/get_page/" + original_head_title + "/1"
+            return redirect(edit_url)
+        else:
+            return redirect("/")
+    except:
         return redirect("/")
 
 
@@ -2200,6 +2215,8 @@ def downloads(path):
 
 使用 SQLite 資料庫儲存檔案, 而且可以轉為純 html 文件
 
+2018.08 已經直接透過 generate_pages 將 config/conten.htm 轉為 content 目錄中的靜態網頁
+
 </t>
 <t tx="leo.20180625155310.1">CMSimfly 所需欄位
 
@@ -2285,8 +2302,8 @@ def generate_pages():
 def get_page2(heading, head, edit, get_page_content = None):
     not_used_head, level, page = parse_content()
     # 直接在此將 /images/ 換為 ./../images/, /downloads/ 換為 ./../downloads/, 以 content 為基準的相對目錄設定
-    page = [w.replace('/images/', './../images/') for w in page]
-    page = [w.replace('/downloads/', './../downloads/') for w in page]
+    page = [w.replace('src="/images/', 'src="./../images/') for w in page]
+    page = [w.replace('href="/downloads/', 'href="./../downloads/') for w in page]
     # 假如有 src="/static/ace/則換為 src="./../static/ace/
     page = [w.replace('src="/static/', 'src="./../static/') for w in page]
     directory = render_menu2(head, level, page)
@@ -2334,13 +2351,52 @@ def get_page2(heading, head, edit, get_page_content = None):
     
     # edit=0 for viewpage
     if edit == 0:
+        return set_css2() + '''&lt;div class='container'&gt;&lt;nav&gt;
+        '''+ \
+        directory + "&lt;div id=\"tipue_search_content\"&gt;" + return_content + \
+        '''&lt;/div&gt;
+        
+    &lt;!-- footer --&gt;
+      &lt;div class="container"&gt;
+        &lt;div class="row pt-3 mx-auto"&gt;
+            &lt;p&gt;
+            &lt;!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --&gt;
+            Copyright &amp;copy;&lt;script&gt;document.write(new Date().getFullYear());&lt;/script&gt; All rights reserved | This template is made with &lt;i class="icon-heart" aria-hidden="true"&gt;&lt;/i&gt; by &lt;a href="https://colorlib.com" target="_blank" &gt;Colorlib&lt;/a&gt;
+            &lt;!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --&gt;
+            &lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;!-- for footer --&gt;
+    
+        &lt;/div&gt; &lt;!-- for site wrap --&gt;
+            &lt;!-- &lt;script src="../static/chimper/js/jquery-3.3.1.min.js"&gt;&lt;/script&gt; --&gt;
+            &lt;script src="../static/chimper/js/jquery-migrate-3.0.1.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/jquery-ui.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/popper.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/bootstrap.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/owl.carousel.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/jquery.stellar.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/jquery.countdown.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/jquery.magnific-popup.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/bootstrap-datepicker.min.js"&gt;&lt;/script&gt;
+            &lt;script src="../static/chimper/js/aos.js"&gt;&lt;/script&gt;
+            &lt;!--
+            &lt;script src="../static/chimper/js/typed.js"&gt;&lt;/script&gt;
+                    &lt;script&gt;
+                    var typed = new Typed('.typed-words', {
+                    strings: ["Web Apps"," WordPress"," Mobile Apps"],
+                    typeSpeed: 80,
+                    backSpeed: 80,
+                    backDelay: 4000,
+                    startDelay: 1000,
+                    loop: true,
+                    showCursor: true
+                    });
+                    &lt;/script&gt;
+            --&gt;
+            &lt;script src="../static/chimper/js/main.js"&gt;&lt;/script&gt;
+        &lt;/body&gt;&lt;/html&gt;
         '''
-        # before add tipue search function
-        return set_css2() + "&lt;div class='container'&gt;&lt;nav&gt;"+ \
-        directory + "&lt;/nav&gt;&lt;section&gt;" + return_content + "&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
-        '''
-        return set_css2() + "&lt;div class='container'&gt;&lt;nav&gt;"+ \
-        directory + "&lt;/nav&gt;&lt;section&gt;&lt;div id=\"tipue_search_content\"&gt;" + return_content + "&lt;/div&gt;&lt;/section&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"
     # enter edit mode
     else:
         # check if administrator
@@ -2365,7 +2421,8 @@ def get_page2(heading, head, edit, get_page_content = None):
     edit = 0
     not_used_head, level, page = parse_content()
     directory = render_menu2(head, level, page)
-    sitemap = render_menu2(head, level, page, sitemap=1)
+    # 先改為使用 render_menu3 而非 render_menu2
+    sitemap = render_menu3(head, level, page, sitemap=1)
     # add tipue search id
     return set_css2() + "&lt;div class='container'&gt;&lt;nav&gt;" + directory + \
              "&lt;/nav&gt;&lt;section&gt;&lt;h1&gt;Site Map&lt;/h1&gt;&lt;div id=\"tipue_search_content\"&gt;&lt;/div&gt;" + sitemap + \
@@ -2373,8 +2430,8 @@ def get_page2(heading, head, edit, get_page_content = None):
 
 
 </t>
-<t tx="leo.20180630203542.1">def render_menu2(head, level, page, sitemap=0):
-    """render menu for static site"""
+<t tx="leo.20180630203542.1">def render_menu3(head, level, page, sitemap=0):
+    """render menu for static sitemap"""
     directory = ""
     current_level = level[0]
     if sitemap:
@@ -2425,53 +2482,73 @@ def get_page2(heading, head, edit, get_page_content = None):
 </t>
 <t tx="leo.20180630203825.1">def set_css2():
     """set css for static site"""
-    outstring = '''&lt;!doctype html&gt;
-&lt;html&gt;&lt;head&gt;
-&lt;meta http-equiv="content-type" content="text/html;charset=utf-8"&gt;
-&lt;title&gt;''' + init.Init.site_title + '''&lt;/title&gt; \
-&lt;link rel="stylesheet" type="text/css" href="./../static/cmsimply.css"&gt;
-&lt;script src="tipuesearch_content.js"&gt;&lt;/script&gt;
-&lt;script src="./../static/jquery.js"&gt;&lt;/script&gt;
-&lt;link rel="stylesheet" href="./../static/tipuesearch/css/tipuesearch.css"&gt;
-&lt;script src="./../static/tipuesearch/tipuesearch_set.js"&gt;&lt;/script&gt;
-&lt;script src="./../static/tipuesearch/tipuesearch.min.js"&gt;&lt;/script&gt;
-''' + syntaxhighlight2()
+    static_head = '''
+        &lt;head&gt;
+        &lt;title&gt;''' + init.Init.site_title + '''&lt;/title&gt;
+        &lt;meta charset="utf-8"&gt;
+        &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;
+        &lt;link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/fonts/icomoon/style.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/bootstrap.min.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/magnific-popup.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/jquery-ui.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/owl.carousel.min.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/owl.theme.default.min.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/bootstrap-datepicker.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/fonts/flaticon/font/flaticon.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/aos.css"&gt;
+        &lt;link rel="stylesheet" href="./../static/chimper/css/style.css"&gt;
+        &lt;link rel="shortcut icon" href="./../static/favicons.png"&gt;
+        
+        &lt;style type='text/css'&gt;
+            .site-section {
+            background-color: #FFFF;
+            padding: 40px 40px;
+            }
+            body &gt; div &gt; div.dropdown.open {
+                display: block;
+            }
+        &lt;/style&gt;
+    '''
+    outstring = '''&lt;!DOCTYPE html&gt;&lt;html&gt;''' + static_head + '''
+        &lt;!-- &lt;script src="./../static/jquery.js"&gt;&lt;/script&gt; --&gt;
+        &lt;!-- &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"&gt;&lt;/script&gt; --&gt;
+        &lt;script src="../static/chimper/js/jquery-3.3.1.min.js"&gt;&lt;/script&gt;
+        &lt;link rel="stylesheet" href="./../static/tipuesearch/css/normalize.min.css"&gt;
+        &lt;script src="./../static/tipuesearch/tipuesearch_set.js"&gt;&lt;/script&gt;
+        &lt;script src="tipuesearch_content.js"&gt;&lt;/script&gt;
+        &lt;link rel="stylesheet" href="./../static/tipuesearch/css/tipuesearch.css"&gt;
+        &lt;script src="./../static/tipuesearch/tipuesearch.js"&gt;&lt;/script&gt;
+        &lt;script&gt;
+            /* original tipuesearch
+            $(document).ready(function() {
+                 $('#tipue_search_input').tipuesearch();
+            });
+            */
+            // customed doSearch
+            function doSearch() {
+                $('#tipue_search_input').tipuesearch({
+                    newWindow: true, 
+                    minimumLength: 2,
+                    wholeWords: false, // for search 中文
+                });
+            }
+            $(document).ready(doSearch);
+        &lt;/script&gt;
+        ''' + syntaxhighlight2()
 
-    outstring += '''
-&lt;script type="text/javascript"&gt;
-/*shorthand of $(document).ready(function(){};); */
-$(function(){
-    $("ul.topmenu&gt; li:has(ul) &gt; a").append('&lt;div class="arrow-right"&gt;&lt;/div&gt;');
-    $("ul.topmenu &gt; li ul li:has(ul) &gt; a").append('&lt;div class="arrow-right"&gt;&lt;/div&gt;');
-});
-function doSearch() {
-     $('#tipue_search_input').tipuesearch({
-        newWindow: true, minimumLength: 2
-     });
-}
-$(document).ready(doSearch);
-&lt;/script&gt;
-'''
+    site_title, password = parse_config()
     if uwsgi:
         outstring += '''
 &lt;script type="text/javascript"&gt;
 if ((location.href.search(/http:/) != -1) &amp;&amp; (location.href.search(/login/) != -1)) \
 window.location= 'https://' + location.host + location.pathname + location.search;
-&lt;/script&gt;
+&lt;/script&gt;&lt;/head&gt;&lt;body&gt;
 '''
-    site_title, password = parse_config()
-    outstring += '''
-&lt;/head&gt;&lt;header&gt;&lt;h1&gt;''' + site_title + '''&lt;/h1&gt; \
-&lt;confmenu&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="sitemap.html"&gt;Site Map&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="./../reveal/index.html"&gt;reveal&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href="./../blog/index.html"&gt;blog&lt;/a&gt;&lt;/li&gt;
-'''
-    outstring += '''
-&lt;/ul&gt;
-&lt;/confmenu&gt;&lt;/header&gt;
+    else:
+        outstring += '''
+&lt;/head&gt;
+&lt;body&gt;
 '''
     return outstring
 
@@ -2928,5 +3005,142 @@ def parse_content_old():
 若標題中帶有特殊超文件內容, 若非第一標題, 則移除 h1, h2 或 h3 標註, 留下內容
 若帶有特殊超文件內容的標題, 為第一標題, 則最前方加上 &lt;h1&gt;First&lt;/h1&gt; 標註</t>
 <t tx="leo.20190104175029.1">add tipu search javascript package</t>
+<t tx="leo.20190501134205.1">render_menu2 必須配合 Chimper 的靜態模板
+set_css2 必須配合  Chimper 的靜態模板
+syntaxhighlight2 必須配合  Chimper 的靜態模板
+js 與 css, fonts, scss 位於 /static/chimper 目錄中
+
+
+</t>
+<t tx="leo.20190501134829.1">def render_menu2(head, level, page, sitemap=0):
+    """render menu for static site"""
+    site_title, password = parse_config()
+    directory = '''
+    &lt;div class="site-wrap"&gt;
+
+    &lt;div class="site-mobile-menu"&gt;
+      &lt;div class="site-mobile-menu-header"&gt;
+        &lt;div class="site-mobile-menu-close mt-3"&gt;
+          &lt;span class="icon-close2 js-menu-toggle"&gt;&lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="site-mobile-menu-body"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+    
+            &lt;header class="site-navbar py-4 bg-white" role="banner"&gt;
+              &lt;div class="container-fluid"&gt;
+                &lt;div class="row align-items-center"&gt;
+                &lt;h1&gt;''' + site_title + '''&lt;/h1&gt;
+                &lt;div class="pl-4"&gt;
+                    &lt;form&gt;
+                    &lt;input type="text" placeholder="Search" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+                  &lt;!-- &lt;div class="col-11 col-xl-2"&gt;
+                    &lt;h1 class="mb-0 site-logo"&gt;&lt;a href="index.html" class="text-black h2 mb-0"&gt;''' + site_title + '''&lt;/a&gt;&lt;/h1&gt; 
+                  &lt;/div&gt;
+                  --&gt;
+                  &lt;div class="col-12 col-md-10 d-none d-xl-block"&gt;
+                    &lt;nav class="site-navigation position-relative text-right" role="navigation"&gt;
+    '''
+    
+    # 從 level 數列第一個元素作為開端, 第一個一定非 level 1 不可
+    current_level = level[0]
+    # 若是 sitemap 則僅列出樹狀架構而沒有套用 css3menu 架構
+    if sitemap:
+        directory += '''&lt;ul&gt;
+&lt;li&gt;
+&lt;form&gt;
+&lt;div class="tipue_search_group"&gt;
+&lt;input type="text" name="q" id="tipue_search_input" pattern=".{2,}" title="At least 2 characters" required&gt;&lt;button type="submit" class="tipue_search_button"&gt;&lt;div class="tipue_search_icon"&gt;&amp;#9906;&lt;/div&gt;&lt;/button&gt;
+&lt;/div&gt;
+&lt;/form&gt;
+&lt;/li&gt;
+        '''
+    else:
+        directory += '''&lt;ul class='site-menu js-clone-nav mr-auto d-none d-lg-block'&gt;'''
+    # 納入主頁與表單
+    directory += '''
+                        &lt;li class="active has-children"&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt;
+                        &lt;ul class="dropdown"&gt;
+                            &lt;li&gt;&lt;a href="sitemap.html"&gt;Site Map&lt;/a&gt;&lt;/li&gt;
+                            &lt;li&gt;&lt;a href="./../reveal/index.html"&gt;reveal&lt;/a&gt;&lt;/li&gt;
+                            &lt;li&gt;&lt;a href="./../blog/index.html"&gt;blog&lt;/a&gt;&lt;/li&gt;
+                        &lt;/ul&gt;
+                      &lt;/li&gt;
+                     '''
+    # 逐一配合 level 數列中的各標題階次, 一一建立對應的表單或 sitemap
+    for index in range(len(head)):
+        # 用 this_level 取出迴圈中逐一處理的頁面對應層級, 注意取出值為 str
+        this_level = level[index]
+        # 若處理中的層級比上一層級高超過一層, 則將處理層級升級 (處理 h1 後直接接 h3 情況)
+        if (int(this_level) - int(current_level)) &gt; 1:
+            #this_level = str(int(this_level) - 1)
+            # 考慮若納入 h4 也作為標題標註, 相鄰層級可能大於一層, 因此直接用上一層級 + 1
+            this_level = str(int(current_level) + 1)
+        # 若處理的階次比目前已經處理的階次大, 表示位階較低
+        # 其實當 level[0] 完全不會報告此一區塊
+        # 從正在處理的標題階次與前一個元素比對, 若階次低, 則要加入另一區段的 unordered list 標頭
+        # 兩者皆為 str 會轉為整數後比較
+        # 目前的位階在上一個標題之後
+        if this_level &gt; current_level:
+            directory += "&lt;ul class='dropdown'&gt;"
+            # 是否加上 class=has-children, 視下一個而定
+            # 目前處理的標題, 並不是最後一個, 因此有下一個標題待處理
+            if index &lt; (len(head)-1):
+                next_level = level[index+1]
+                if this_level &lt; next_level:
+                    # 表示要加上 class=dropdown
+                    directory += "&lt;li class='has-children'&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+                else:
+                    directory += "&lt;li&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+            else:
+                #表示為最後一個
+                directory += "&lt;li&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+        # 假如正在處理的標題與前一個元素同位階, 則必須再判定是否為另一個 h1 的樹狀頭
+        # 目前標題與上一個標題相同
+        elif this_level == current_level:
+            # 是否加上 class=has-children, 視下一個而定
+            # 目前處理的標題, 並不是最後一個, 因此有下一個標題待處理
+            if index &lt; (len(head)-1):
+                next_level = level[index+1]
+                if this_level &lt; next_level:
+                    # 表示要加上 class=dropdown
+                    directory += "&lt;li class='has-children'&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+                else:
+                    directory += "&lt;li&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+            else:
+                #表示為最後一個
+                directory += "&lt;li&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+        # 假如正處理的元素比上一個元素位階更高, 必須要先關掉前面的低位階區段
+        else:
+            directory += "&lt;/li&gt;"*(int(current_level) - int(level[index]))
+            directory += "&lt;/ul&gt;"*(int(current_level) - int(level[index]))
+            if index &lt; (len(head)-1):
+                next_level = level[index+1]
+                if this_level &lt; next_level:
+                    # 表示要加上 class=dropdown
+                    directory += "&lt;li class='has-children'&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+                else:
+                    directory += "&lt;li&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+            else:
+                #表示為最後一個
+                directory += "&lt;li&gt;&lt;a href='" + head[index] + ".html'&gt;" + head[index] + "&lt;/a&gt;"
+        current_level = this_level
+    directory += '''&lt;/li&gt;
+                      &lt;/ul&gt;
+                &lt;/nav&gt;
+              &lt;/div&gt;
+              &lt;div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"&gt;&lt;a href="#" class="site-menu-toggle js-menu-toggle text-black"&gt;&lt;span class="icon-menu h3"&gt;&lt;/span&gt;&lt;/a&gt;&lt;/div&gt;
+              &lt;/div&gt;
+
+            &lt;/div&gt;
+          &lt;/div&gt;
+          
+        &lt;/header&gt;
+    '''
+    return directory
+</t>
+<t tx="leo.20190502201351.1">使用 Bootstrap 4 作為靜態網頁的前端, 所 generate_pages 出來在 content 中的頁面可自動在電腦與手機螢幕自行縮放</t>
 </tnodes>
 </leo_file>
